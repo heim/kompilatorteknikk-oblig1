@@ -1,0 +1,14 @@
+(PROGRAM
+	(VAR_DECL (TYPE integer) (NAME balle))
+	(CLASS (NAME Arne)
+	)
+
+	(FUNC_DECL (TYPE kuk) (NAME Bjarne)
+		(PARAM_DECL (TYPE integer)(NAME kjeks))
+		(VAR_DECL (TYPE integer) (NAME test))
+		(FUNC_DECL (TYPE integer) (NAME Nested)
+			(PARAM_DECL ref (TYPE integer)(NAME kukken))
+			(VAR_DECL (TYPE string) (NAME nestedVar))
+		)
+	)
+)

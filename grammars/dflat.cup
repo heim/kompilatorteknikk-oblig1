@@ -1,0 +1,78 @@
+package dflat.parser;
+import java_cup.runtime.*;
+import dflat.syntaxtree.*;
+import java.util.*;
+
+parser code {:
+:};
+
+/* Terminals */
+
+terminal String					NAME;
+terminal 						BOOLEAN, INTEGER, STRING, FLOAT;
+terminal 						CLASS, FUNC, VAR, RET, REF;
+terminal						SEMI;
+terminal						RBRACK, LBRACK, RPARENT, LPARENT;
+
+
+
+/* Non terminals */
+non terminal	Program	        program;
+non terminal	FuncDecl		func_decl;
+non terminal	VarDecl			var_decl;
+non terminal 	ClassDecl		class_decl;
+non terminal	List<VarDecl>	var_decl_list;
+non terminal	Decl			decl;
+non terminal	List<Decl>   	decl_list;
+non terminal	Type		    type;
+non terminal	Type			return_type;
+non terminal 	List<Param>		param_list;
+non terminal 	List<Param>		param_decl;
+non terminal	Param			param;
+
+/* The grammar */
+program			::= decl_list:dl {: RESULT= new Program(dl); :};
+decl_list 		::= decl:d	{:
+					List<Decl> declist = new LinkedList<Decl>();
+					declist.add(d);
+					RESULT = declist;
+				:} 
+				| decl_list:dl decl:d {:
+					dl.add(d);
+					RESULT = dl;
+				:};
+				
+				
+decl 			::= var_decl:vd {: RESULT = vd; :} 
+				| class_decl:cd {: RESULT = cd; :}
+				| func_decl:fd  {: RESULT = fd; :};
+				
+
+
+class_decl 		::= CLASS NAME:name SEMI {: RESULT = new ClassDecl(name, new LinkedList<VarDecl>()); :};
+
+func_decl		::= FUNC return_type:rt NAME:name LPARENT param_decl:pl RPARENT LBRACK decl_list:dl RBRACK 
+				    {: RESULT = new FuncDecl(name, pl, rt, dl); :};
+
+param_decl		::= param_list:pl {: RESULT = pl; :} | {: RESULT = new ArrayList<Param>();:};
+
+param_list		::= param_list:pl param:p {: pl.add(p); RESULT = pl;:} 
+				|  param:p {:
+					List<Param> pl = new ArrayList<Param>();
+					pl.add(p);
+					RESULT = pl;
+				:};
+				
+param			::= REF type:t NAME:name {: RESULT = new Param(true, t, name);:} | type:t NAME:name {: RESULT = new Param(false, t, name);:};
+return_type		::= RET type:t {: RESULT = t; :} | {: RESULT = new Type("nullType"); :};
+/*var_decl_list 	::= var_decl_list:vdl var_decl:d {: vdl.add(d);RESULT = vdl; :} | var_decl:d {: List<VarDecl> vdl = new LinkedList<VarDecl>(); vdl.add(d); RESULT = vdl; :}; */ 
+
+
+var_decl 		::= VAR type:t NAME:name SEMI
+					{: 
+						System.out.println("new node");
+						RESULT = new VarDecl(t, name); 
+					:};
+						
+type			::= BOOLEAN {: RESULT = new Type("boolean"); :} | FLOAT {: RESULT = new Type("float"); :} | INTEGER {: RESULT = new Type("integer"); :} | STRING {: RESULT = new Type("string"); :} | NAME:name {: RESULT = new Type(name); :};
+						
