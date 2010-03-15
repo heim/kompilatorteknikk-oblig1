@@ -18,7 +18,7 @@ public class ClassDecl extends Decl {
 		for(VarDecl d :varDecl) {
 			retval +=  d.printAst(indent + 1);
 		}
-		return retval + indentTabs(indent) +  ")\n";
+		return retval + indentTabs(indent) +  ")";
 	}
 
 }

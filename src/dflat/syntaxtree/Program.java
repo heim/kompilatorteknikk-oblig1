@@ -14,7 +14,7 @@ public class Program extends Node {
 		String retval = "(PROGRAM\n";
 		for(Decl d : declList) {
 			System.out.println("P");
-			retval += d.printAst(indent + 1) +  "\n";
+			retval += d.printAst(indent + 1) +  "\n\n";
 		}
 		retval += indentTabs(indent) + ")\n";
 		return retval;

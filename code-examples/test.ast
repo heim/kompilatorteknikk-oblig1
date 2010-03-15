@@ -1,14 +1,110 @@
 (PROGRAM
-	(VAR_DECL (TYPE integer) (NAME balle))
+	(VAR_DECL (TYPE int) (NAME (NAME balle)))
+
 	(CLASS (NAME Arne)
+		(VAR_DECL (TYPE int) (NAME (NAME ballalaika)))	)
+
+	(CLASS (NAME Empty)
 	)
 
-	(FUNC_DECL (TYPE kuk) (NAME Bjarne)
-		(PARAM_DECL (TYPE integer)(NAME kjeks))
-		(VAR_DECL (TYPE integer) (NAME test))
-		(FUNC_DECL (TYPE integer) (NAME Nested)
-			(PARAM_DECL ref (TYPE integer)(NAME kukken))
-			(VAR_DECL (TYPE string) (NAME nestedVar))
+	(FUNC_DECL (TYPE (NAME kuk)) (NAME Bjarne)
+		(PARAM_DECL (TYPE int)(NAME kjeks))
+		(VAR_DECL (TYPE int) (NAME (NAME test)))
+		(FUNC_DECL (TYPE int) (NAME Nested)
+			(PARAM_DECL ref (TYPE int)(NAME kukken))
+			(VAR_DECL (TYPE string) (NAME (NAME nestedVar)))
 		)
 	)
+
+	(FUNC_DECL  (NAME empty)
+	)
+
+	(FUNC_DECL  (NAME onlyDecl)
+		(PARAM_DECL ref (TYPE (NAME Klass))(NAME Kuk))
+		(VAR_DECL (TYPE string) (NAME (NAME diss)))
+	)
+
+	(FUNC_DECL  (NAME callShit)
+		(RETURN_STMT 
+			(INT_LITERAL 100)
+
+		(RETURN_STMT 
+			(CALL_STMT (NAME callShit)
+
+
+		(RETURN_STMT 
+			(CALL_STMT (NAME callWithParams)
+				(ACTUAL_PARAM (NAME shaiizzz))
+				(ACTUAL_PARAM ref (NAME kukkzzeeee))
+				(ACTUAL_PARAM (NAME shizz))
+
+
+	)
+
+	(FUNC_DECL  (NAME onlyStatement)
+		(RETURN_STMT 
+			(INT_LITERAL 100)
+
+		(RETURN_STMT 
+			(STRING_LITERAL hei m3d t4ll t		abs og sem;kolon)
+
+		(RETURN_STMT 
+			(FLOAT_LITERAL 3.14)
+
+		(RETURN_STMT 
+			false
+
+		(RETURN_STMT 
+			(NEGATED_EXP true)
+
+		(RETURN_STMT 
+			( . (NAME variable) (NAME access))
+
+		(RETURN_STMT 
+			(NEW (TYPE (NAME BananFlue)))
+
+	)
+
+	(FUNC_DECL  (NAME LogOps)
+		(RETURN_STMT 
+			(LOG OP &&
+				true
+				true
+			)
+
+		(RETURN_STMT 
+			(LOG OP ||
+				false
+				true
+			)
+
+		(RETURN_STMT 
+			(LOG OP ||
+				(LOG OP ||
+					false
+					false
+				)
+				(NEGATED_EXP false)
+			)
+
+		(RETURN_STMT 
+			(LOG OP ||
+				(LOG OP &&
+					false
+					true
+				)
+				true
+			)
+
+		(RETURN_STMT 
+			(LOG OP ||
+				false
+				(LOG OP &&
+					true
+					false
+				)
+			)
+
+	)
+
 )

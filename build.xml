@@ -51,7 +51,7 @@
 	<!-- Generate Java files using JFlex and CUP  -->
 	<target name="generate" depends="mkdir">
 		<jflex file="./grammars/dflat.lex" destdir="src-gen"/>
-		<cup srcfile="./grammars/dflat.cup" destdir="src-gen" interface="true" />
+		<cup srcfile="./grammars/dflat.cup" destdir="src-gen" interface="true" expect="1"/>
 	</target>
 
 	<!-- Compile Java Files and store in /build/classes directory  -->
