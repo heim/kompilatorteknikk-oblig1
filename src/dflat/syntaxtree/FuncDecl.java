@@ -19,7 +19,7 @@ public class FuncDecl extends Decl {
 	}
 	
 	public String printAst(int indent) {
-		String returnTypeDesc = "";
+		String returnTypeDesc = "(TYPE void)";
 		
 		if(returnType != null) {
 			returnTypeDesc = returnType.printAst(0);

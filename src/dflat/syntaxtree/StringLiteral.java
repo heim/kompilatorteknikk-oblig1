@@ -10,6 +10,6 @@ public class StringLiteral extends Literal {
 
 	@Override
 	public String printAst(int indent) {
-		return indentTabs(indent) + "(STRING_LITERAL " + value + ")";
+		return indentTabs(indent) + "(STRING_LITERAL \" " + value + " \")";
 	}
 }

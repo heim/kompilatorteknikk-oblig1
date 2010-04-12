@@ -1,0 +1,145 @@
+package dflat.parser;
+import java_cup.runtime.*;
+import dflat.syntaxtree.*;
+import dflat.syntaxtree.op.*;
+import java.util.*;
+
+parser code {:
+:};
+
+
+
+/* Terminals */
+
+terminal String		NAME;
+terminal String		STRING_LITERAL, DEC_INT_LITERAL, FLOAT_LITERAL, NULL;
+terminal 			BOOLEAN, INTEGER, STRING, FLOAT;
+terminal 			CLASS, FUNC, VAR, RET, REF;
+terminal			IF, THEN, ELSE;
+terminal			WHILE, DO, ASSIGN;
+terminal			RETURN, NEW;
+terminal			SEMI;
+terminal			RBRACK, LBRACK, RPARENT, LPARENT;
+terminal			EXCLAM, PERIOD, COMMA;
+terminal			LT, GT, LTE, GTE, EQUAL, NOT_EQUAL;
+terminal			TRUE, FALSE;
+terminal			AND, OR;
+terminal			PLUS, MINUS, DIVIDE, MULTIPLY, EXPONENT;
+
+
+/* Non terminals */
+non terminal	Program			program;
+non terminal	String	        decl, func_decl, var_decl, class_decl,
+								type, return_type, param, decl_list, func_decl_list,
+								param_list, param_decl, var_decl_list, opt_var_decl,
+								stmt_list, opt_stmt_list, stmt, exp, var, literal, 
+								actual_param, actual_param_list, call_stmt, 
+								rel_op,  return_stmt, assign_stmt,
+								if_stmt, while_stmt,
+								and_exp, add_exp, mul_exp, neg_exp, rel_exp,
+								add_op, mul_op, expon_exp, new_stmt, simple_exp;
+
+/* The grammar */
+program			::= decl_list:dl {: RESULT = new Program(new LinkedList<Decl>()); :};
+
+
+
+decl_list 		::= decl:d | decl_list:dl decl:d;
+				
+				
+decl 			::= class_decl | var_decl | func_decl;
+				
+
+
+class_decl 		::= CLASS NAME LBRACK opt_var_decl RBRACK;
+
+
+opt_var_decl 	::= var_decl_list | ;
+
+var_decl_list 	::= var_decl_list var_decl | var_decl:d ; 
+
+var_decl 		::= VAR type NAME SEMI;
+					
+type			::= BOOLEAN   
+				  | FLOAT  
+				  | INTEGER 
+				  | STRING 
+				  | NAME;
+
+
+
+func_decl		::= FUNC return_type NAME LPARENT param_decl RPARENT LBRACK func_decl_list opt_stmt_list RBRACK;
+
+func_decl_list ::= decl_list | ;
+
+param_decl		::= param_list | ;
+
+param_list		::= param_list COMMA param | param ;
+				
+param			::= REF type NAME | type NAME ;
+
+return_type		::= RET type | ;
+				  
+stmt_list 		::= stmt_list stmt | stmt ;
+
+stmt		::= return_stmt SEMI 
+			| assign_stmt SEMI 
+			| if_stmt 
+			| call_stmt SEMI
+			| while_stmt ; 
+
+			
+while_stmt ::= WHILE exp DO LBRACK opt_stmt_list RBRACK ;
+
+return_stmt ::= RETURN | RETURN exp ;
+
+if_stmt 	::= IF exp THEN LBRACK opt_stmt_list RBRACK 
+			| IF exp THEN LBRACK opt_stmt_list RBRACK ELSE LBRACK opt_stmt_list RBRACK ;
+
+opt_stmt_list ::= stmt_list | ;
+
+assign_stmt ::= var ASSIGN exp ;
+
+exp				::=  call_stmt | new_stmt | simple_exp ;
+simple_exp		::= simple_exp OR and_exp | and_exp ;
+
+and_exp			::= and_exp AND neg_exp | neg_exp;
+
+neg_exp			::= EXCLAM neg_exp | rel_exp;
+
+rel_exp			::= add_exp rel_op add_exp | add_exp;
+
+add_exp			::= add_exp add_op mul_exp | mul_exp;
+
+mul_exp			::= mul_exp mul_op expon_exp | expon_exp;
+
+expon_exp		::= var EXPONENT expon_exp | var ;
+
+var 			::=  literal | NAME | var PERIOD NAME | LPARENT exp RPARENT ;
+	
+new_stmt		::= NEW type LPARENT RPARENT;
+add_op			::= PLUS | MINUS;
+mul_op			::= MULTIPLY | DIVIDE;	
+				
+
+
+rel_op 		::= LT | GT | LTE  | GTE | EQUAL | NOT_EQUAL ;
+
+
+				
+call_stmt 	::= NAME LPARENT actual_param_list RPARENT 
+			| NAME LPARENT RPARENT ;
+
+actual_param_list ::= actual_param_list COMMA actual_param | actual_param ;
+
+actual_param ::= REF var | exp;
+				
+literal			::= DEC_INT_LITERAL
+				  | STRING_LITERAL
+				  | FLOAT_LITERAL
+				  | TRUE | FALSE | NULL ;
+
+
+
+
+						

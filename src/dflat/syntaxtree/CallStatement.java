@@ -2,7 +2,7 @@ package dflat.syntaxtree;
 
 import java.util.List;
 
-public class CallStatement extends Expression {
+public class CallStatement extends Statement {
 
 	private Name name;
 	private List<ActualParam> actualParamList;

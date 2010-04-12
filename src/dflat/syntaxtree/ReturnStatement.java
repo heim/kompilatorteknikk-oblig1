@@ -9,7 +9,10 @@ public class ReturnStatement extends Statement {
 	}
 	
 	public String printAst(int indent) {
-		return indentTabs(indent) + "(RETURN_STMT \n" + expression.printAst(indent + 1) + "\n";
-		
+		if (expression == null) {
+			return indentTabs(indent) + "(RETURN_STMT)\n";
+		} else {
+			return indentTabs(indent) + "(RETURN_STMT \n" + expression.printAst(indent + 1) + "\n" + indentTabs(indent) + ")\n";
+		}	
 	}
 }

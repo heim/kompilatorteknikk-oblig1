@@ -9,6 +9,6 @@ public class BooleanLiteral extends Literal {
 	}
 	
 	public String printAst(int indent) {
-		return indentTabs(indent) + String.valueOf(value);
+		return indentTabs(indent) + "(BOOL_LITERAL " + String.valueOf(value) + ")";
 	}
 }

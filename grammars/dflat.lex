@@ -31,7 +31,6 @@ FloatLiteral    = 0.0 | [1-9][0-9]*\.[0-9][0-9]*
 <YYINITIAL>{
 	{WhiteSpace}        {}
 	{Comment}			{}
-	"statement"			{ return symbol(sym.STATEMENT);}
 	"var"				{ return symbol(sym.VAR);}
 	"class"				{ return symbol(sym.CLASS);}
 	"func"				{ return symbol(sym.FUNC); }
@@ -43,6 +42,7 @@ FloatLiteral    = 0.0 | [1-9][0-9]*\.[0-9][0-9]*
 	"float"				{ return symbol(sym.FLOAT);}
 	"true"				{ return symbol(sym.TRUE);}
 	"false"				{ return symbol(sym.FALSE);}
+	"null"				{ return symbol(sym.NULL);}
 	"return"			{ return symbol(sym.RETURN);}
 	"while"				{ return symbol(sym.WHILE);}
 	"do"				{ return symbol(sym.DO);}

@@ -11,6 +11,6 @@ public class VarDecl extends Decl {
 	}
 
 	public String printAst(int indent) {
-		return indentTabs(indent) + "(VAR_DECL " + type.printAst(0) + " (NAME " + name.printAst(0) + "))";
+		return indentTabs(indent) + "(VAR_DECL " + type.printAst(0) +  name.printAst(0) + ")";
 	}
 }

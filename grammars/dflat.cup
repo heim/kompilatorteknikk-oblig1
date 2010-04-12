@@ -1,6 +1,7 @@
 package dflat.parser;
 import java_cup.runtime.*;
 import dflat.syntaxtree.*;
+import dflat.syntaxtree.op.*;
 import java.util.*;
 
 parser code {:
@@ -11,7 +12,7 @@ parser code {:
 /* Terminals */
 
 terminal String		NAME;
-terminal String		STRING_LITERAL, DEC_INT_LITERAL, FLOAT_LITERAL;
+terminal String		STRING_LITERAL, DEC_INT_LITERAL, FLOAT_LITERAL, NULL;
 terminal 			BOOLEAN, INTEGER, STRING, FLOAT;
 terminal 			CLASS, FUNC, VAR, RET, REF;
 terminal			IF, THEN, ELSE;
@@ -24,7 +25,6 @@ terminal			LT, GT, LTE, GTE, EQUAL, NOT_EQUAL;
 terminal			TRUE, FALSE;
 terminal			AND, OR;
 terminal			PLUS, MINUS, DIVIDE, MULTIPLY, EXPONENT;
-terminal			STATEMENT; //FIXME
 
 
 /* Non terminals */
@@ -42,22 +42,29 @@ non terminal 	List<Param>		param_list;
 non terminal 	List<Param>		param_decl;
 non terminal	List<VarDecl>	var_decl_list;
 non terminal	List<VarDecl> 	class_var_decl;
-non terminal	List<Statement> func_stmt_list;
-non terminal	List<Statement> stmt_list;
+non terminal	List<Statement> stmt_list, opt_stmt_list;
 non terminal	Statement		stmt;
 non terminal	Expression		exp;
 non terminal 	VariableExpression var;
 non terminal	Literal			literal;
 non terminal	ActualParam		actual_param;
 non terminal	List<ActualParam> actual_param_list;
-non terminal	CallStatement	call_statement;
+non terminal	CallStatement	call_stmt;
 non terminal	LogOpExpression	log_op_expression;
-
-
+non terminal	RelOp			rel_op;
+non terminal	AritOpExpression arit_op_expression;
+non terminal	ReturnStatement return_stmt;
+non terminal	AssignStatement assign_stmt;
+non terminal	IfStatement		if_stmt;
+non terminal	WhileStatement	while_stmt;
 
 precedence left OR;
 precedence left AND;
 precedence left EXCLAM;
+precedence nonassoc LT, GT, LTE, GTE, EQUAL, NOT_EQUAL; 
+precedence left PLUS, MINUS;
+precedence left MULTIPLY, DIVIDE;
+precedence right EXPONENT;
 precedence left PERIOD;
 /* The grammar */
 program			::= decl_list:dl {: RESULT= new Program(dl); :};
@@ -78,17 +85,16 @@ decl 			::= var_decl:vd {: RESULT = vd; :}
 				
 
 
-class_decl 		::= CLASS NAME:name LBRACK class_var_decl:vdl RBRACK {: RESULT = new ClassDecl(name, vdl); :};
+class_decl 		::= CLASS NAME:name LBRACK class_var_decl:vdl RBRACK {: RESULT = new ClassDecl(new Name(name), vdl); :};
 
-func_decl		::= FUNC return_type:rt NAME:name LPARENT param_decl:pl RPARENT LBRACK func_decl_list:dl func_stmt_list:fsl RBRACK 
+func_decl		::= FUNC return_type:rt NAME:name LPARENT param_decl:pl RPARENT LBRACK func_decl_list:dl opt_stmt_list:fsl RBRACK 
 				    {: RESULT = new FuncDecl(name, pl, rt, dl, fsl); :};
 
 func_decl_list ::= decl_list:dl {: RESULT = dl; :} | {: RESULT = new LinkedList<Decl>(); :};
-func_stmt_list ::= stmt_list:sl {: RESULT = sl; :} | {: RESULT = new LinkedList<Statement>(); :};
 
 param_decl		::= param_list:pl {: RESULT = pl; :} | {: RESULT = new ArrayList<Param>();:};
 
-param_list		::= param_list:pl param:p {: pl.add(p); RESULT = pl;:} 
+param_list		::= param_list:pl COMMA param:p {: pl.add(p); RESULT = pl;:} 
 				|  param:p {:
 					List<Param> pl = new ArrayList<Param>();
 					pl.add(p);
@@ -117,25 +123,53 @@ type			::= BOOLEAN {: RESULT = new BooleanType(); :}
 				  | NAME:name {: RESULT = new ClassType(new Name(name)); :};
 				  
 stmt_list 		::= stmt_list:sl stmt:s {: sl.add(s); RESULT = sl;:} | stmt:s {: List<Statement> sl = new ArrayList<Statement>(); sl.add(s); RESULT = sl;:};
-stmt		::= exp:e SEMI {: RESULT = new ReturnStatement(e); :}; //TODO
+
+stmt		::= return_stmt:rs SEMI {: RESULT = rs; :}
+			| assign_stmt:as SEMI {: RESULT = as; :}
+			| if_stmt:is {: RESULT = is; :} 
+			| call_stmt:cs SEMI {: RESULT = cs; :}
+			| while_stmt:ws {: RESULT = ws;:}; 
+
+			
+while_stmt ::= WHILE exp:e DO LBRACK opt_stmt_list:sl RBRACK {:RESULT = new WhileStatement(e, sl); :};
+
+return_stmt ::= RETURN {: RESULT = new ReturnStatement(null); :} | RETURN exp:e {: RESULT = new ReturnStatement(e); :};
+
+if_stmt 	::= IF exp:e THEN LBRACK opt_stmt_list:sl RBRACK {: RESULT = new IfStatement(e, sl); :}
+			| IF exp:e THEN LBRACK opt_stmt_list:sl RBRACK ELSE LBRACK opt_stmt_list:sl2 RBRACK
+			{: RESULT = new IfElseStatement(e, sl, sl2); :};
+
+opt_stmt_list ::= stmt_list:sl {: RESULT = sl;:} | {: RESULT = new LinkedList<Statement>();:};
+
+assign_stmt ::= var:v ASSIGN exp:e {: RESULT = new AssignStatement(v, e); :};
 
 exp				::=  LPARENT exp:e RPARENT {: RESULT = e;:} 
 				| literal:l {: RESULT = l;:} 
 				| var:v {: RESULT = v;:}
 				| EXCLAM exp:e {: RESULT = new NegatedExpression(e); :}
-				| call_statement:s {: RESULT = s; :}
+				| call_stmt:s {: RESULT = s; :}
 				| NEW type:t LPARENT RPARENT {: RESULT = new NewExpression(t);:}
-				| log_op_expression:op {: RESULT = op;:};
+				| log_op_expression:op {: RESULT = op;:}
+				| exp:e1 rel_op:ro exp:e2 {: RESULT = new RelOpExpression(e1, ro, e2); :}
+				| arit_op_expression:ao {: RESULT = ao;:};
 				
-//FIXME, gj¿r om dette til AndExpression og OrExpression
-log_op_expression ::= exp:e1 AND exp:e2 {: RESULT = new LogOpExpression(e1, new AndOp(), e2); :} | exp:e1 OR exp:e2 {: RESULT = new LogOpExpression(e1, new OrOp(), e2);:};
+arit_op_expression 	::= exp:e1 PLUS exp:e2 {: RESULT = new AritOpExpression(e1, new PlusOp(), e2); :}
+					| exp:e1 MINUS exp:e2 {: RESULT = new AritOpExpression(e1, new MinusOp(), e2); :}
+					| exp:e1 MULTIPLY exp:e2 {: RESULT = new AritOpExpression(e1, new MultiplyOp(), e2); :}
+					| exp:e1 DIVIDE exp:e2 {: RESULT = new AritOpExpression(e1, new DivideOp(), e2); :}
+					| exp:e1 EXPONENT exp:e2 {: RESULT = new AritOpExpression(e1, new ExponentOp(), e2); :};
 
+
+log_op_expression ::= exp:e1 AND exp:e2 {: RESULT = new AndOpExpression(e1, e2); :} | exp:e1 OR exp:e2 {: RESULT = new OrOpExpression(e1, e2);:};
+
+rel_op 		::= LT {: RESULT = new LTOp(); :}| GT {: RESULT = new GTOp(); :} | LTE {: RESULT = new LTEOp(); :} | GTE {: RESULT = new GTEOp(); :} 
+		   	  | EQUAL {: RESULT = new EQOp(); :}| NOT_EQUAL {: RESULT = new NEQOp(); :};
 
 var 			::= NAME:name {: RESULT = new VariableExpression(new Name(name)); :}
 				|  exp:e PERIOD NAME:name {: RESULT = new ObjectVariableExpression(e, new Name(name)); :};
 
 				
-call_statement ::= NAME:name LPARENT actual_param_list:pl RPARENT {: RESULT = new CallStatement(new Name(name), pl); :} 
+call_stmt ::= NAME:name LPARENT actual_param_list:pl RPARENT {: RESULT = new CallStatement(new Name(name), pl); :} 
 				|NAME:name LPARENT RPARENT {: RESULT = new CallStatement(new Name(name), new ArrayList<ActualParam>()); :} ;
 
 actual_param_list ::= actual_param_list:pl COMMA actual_param:p 
@@ -150,7 +184,7 @@ actual_param ::= REF var:v {: RESULT = new PassByReferenceParam(v); :} | exp:e {
 literal			::= DEC_INT_LITERAL:i {: RESULT = new IntLiteral(i); :}
 				  | STRING_LITERAL:s {: RESULT = new StringLiteral(s); :}
 				  | FLOAT_LITERAL:f {: RESULT = new FloatLiteral(f); :}
-				  | TRUE {: RESULT = new BooleanLiteral(true); :} | FALSE {: RESULT = new BooleanLiteral(false);:} ;
+				  | TRUE {: RESULT = new BooleanLiteral(true); :} | FALSE {: RESULT = new BooleanLiteral(false);:} | NULL {: RESULT = new NullLiteral();:};
 
 
 
