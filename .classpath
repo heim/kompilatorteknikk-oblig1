@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry excluding="test/java/|main/java/" kind="src" path="src"/>
-	<classpathentry kind="src" path="src-gen"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/java-cup-11a.jar"/>
-	<classpathentry kind="lib" path="lib/JFlex.jar"/>
-	<classpathentry kind="output" path="target/classes"/>
-</classpath>
