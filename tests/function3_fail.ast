@@ -1,0 +1,18 @@
+(PROGRAM
+	(FUNC_DECL (TYPE int) (NAME Add)
+		(PARAM_DECL (TYPE int)(NAME val1))
+		(PARAM_DECL (TYPE int)(NAME val2))
+		(RETURN_STMT)
+
+	)
+
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(CALL_STMT (NAME print_int)
+			(ACTUAL_PARAM (CALL_STMT (NAME Add)
+	(ACTUAL_PARAM (INT_LITERAL 40))
+	(ACTUAL_PARAM (INT_LITERAL 2))
+)
+
+	)
+
+)

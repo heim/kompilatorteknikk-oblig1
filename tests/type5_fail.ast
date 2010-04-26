@@ -1,0 +1,16 @@
+(PROGRAM
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(VAR_DECL (TYPE int)(NAME tmp))
+		(ASSIGN_STMT
+			(NAME tmp)
+			(INT_LITERAL 42)
+)
+
+		(ASSIGN_STMT
+			( . (NAME tmp) (NAME Foo))
+			(INT_LITERAL 42)
+)
+
+	)
+
+)

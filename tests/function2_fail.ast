@@ -1,0 +1,14 @@
+(PROGRAM
+	(FUNC_DECL (TYPE string) (NAME Func)
+		(RETURN_STMT 
+			(INT_LITERAL 42)
+		)
+
+	)
+
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(CALL_STMT (NAME Func)
+
+	)
+
+)

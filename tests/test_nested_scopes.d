@@ -1,11 +1,11 @@
 func Main()
 {
     var bool flag;
-    flag := false;
     
     func change_flag() {
          flag := !flag;
     }
+    flag := false;    
     
     change_flag();
 }

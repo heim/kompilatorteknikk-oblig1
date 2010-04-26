@@ -1,0 +1,9 @@
+(PROGRAM
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(RETURN_STMT 
+			(INT_LITERAL 1234)
+		)
+
+	)
+
+)

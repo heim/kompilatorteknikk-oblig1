@@ -1,0 +1,10 @@
+(PROGRAM
+	(FUNC_DECL (TYPE void) (NAME xx)
+	)
+
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(CALL_STMT (NAME yy)
+
+	)
+
+)

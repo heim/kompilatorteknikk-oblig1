@@ -1,0 +1,21 @@
+(PROGRAM
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(VAR_DECL (TYPE boolean)(NAME flag))
+		(FUNC_DECL (TYPE void) (NAME change_flag)
+			(VAR_DECL (TYPE int)(NAME flag))
+			(ASSIGN_STMT
+				(NAME flag)
+				(NEGATED_EXP (NAME flag))
+)
+
+		)
+		(ASSIGN_STMT
+			(NAME flag)
+			(BOOL_LITERAL false)
+)
+
+		(CALL_STMT (NAME change_flag)
+
+	)
+
+)

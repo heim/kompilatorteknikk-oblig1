@@ -1,0 +1,15 @@
+(PROGRAM
+	(FUNC_DECL (TYPE void) (NAME Func)
+		(PARAM_DECL (TYPE int)(NAME a))
+		(VAR_DECL (TYPE int)(NAME a))
+		(CALL_STMT (NAME print_int)
+			(ACTUAL_PARAM (NAME a))
+
+	)
+
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(CALL_STMT (NAME Func)
+
+	)
+
+)

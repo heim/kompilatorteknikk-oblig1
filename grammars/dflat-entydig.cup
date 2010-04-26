@@ -1,8 +1,4 @@
 package dflat.parser;
-import java_cup.runtime.*;
-import dflat.syntaxtree.*;
-import dflat.syntaxtree.op.*;
-import java.util.*;
 
 parser code {:
 :};

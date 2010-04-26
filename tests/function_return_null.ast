@@ -1,0 +1,12 @@
+(PROGRAM
+	(FUNC_DECL (TYPE void) (NAME Main)
+	)
+
+	(FUNC_DECL (TYPE string) (NAME test)
+		(RETURN_STMT 
+			(NULL)
+		)
+
+	)
+
+)

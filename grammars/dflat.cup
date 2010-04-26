@@ -1,8 +1,4 @@
 package dflat.parser;
-import java_cup.runtime.*;
-import dflat.syntaxtree.*;
-import dflat.syntaxtree.op.*;
-import java.util.*;
 
 parser code {:
 :};
@@ -88,7 +84,7 @@ decl 			::= var_decl:vd {: RESULT = vd; :}
 class_decl 		::= CLASS NAME:name LBRACK class_var_decl:vdl RBRACK {: RESULT = new ClassDecl(new Name(name), vdl); :};
 
 func_decl		::= FUNC return_type:rt NAME:name LPARENT param_decl:pl RPARENT LBRACK func_decl_list:dl opt_stmt_list:fsl RBRACK 
-				    {: RESULT = new FuncDecl(name, pl, rt, dl, fsl); :};
+				    {: RESULT = new FuncDecl(new Name(name), pl, rt, dl, fsl); :};
 
 func_decl_list ::= decl_list:dl {: RESULT = dl; :} | {: RESULT = new LinkedList<Decl>(); :};
 
@@ -179,7 +175,7 @@ actual_param_list ::= actual_param_list:pl COMMA actual_param:p
 					   pl.add(p);
 					   RESULT = pl;
 					:};
-actual_param ::= REF var:v {: RESULT = new PassByReferenceParam(v); :} | exp:e {: RESULT = new PassByValueParam(e);:};
+actual_param ::= REF var:v {: RESULT = new PassByReferenceParam(v); :} | exp:e {: RESULT = new PassByValueParam(e);:} ;
 				
 literal			::= DEC_INT_LITERAL:i {: RESULT = new IntLiteral(i); :}
 				  | STRING_LITERAL:s {: RESULT = new StringLiteral(s); :}

@@ -1,0 +1,15 @@
+(PROGRAM
+	(CLASS (NAME Foo)
+		(VAR_DECL (TYPE int)(NAME Attr))
+	)
+
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(VAR_DECL (TYPE (NAME Foo))(NAME foo))
+		(ASSIGN_STMT
+			( . (NAME foo) (NAME DoesntExist))
+			(INT_LITERAL 42)
+)
+
+	)
+
+)

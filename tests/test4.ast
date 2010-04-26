@@ -1,0 +1,52 @@
+(PROGRAM
+	(FUNC_DECL (TYPE float) (NAME Sum)
+		(PARAM_DECL (TYPE float)(NAME v1))
+		(PARAM_DECL (TYPE float)(NAME v2))
+		(RETURN_STMT 
+			(ARIT_OP +
+				(NAME v1)
+				(NAME v2)
+			)
+		)
+
+	)
+
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(FUNC_DECL (TYPE int) (NAME InnerSum)
+			(PARAM_DECL (TYPE int)(NAME v1))
+			(PARAM_DECL (TYPE int)(NAME v2))
+			(RETURN_STMT 
+				(ARIT_OP +
+					(NAME v1)
+					(NAME v2)
+				)
+			)
+
+		)
+		(VAR_DECL (TYPE float)(NAME f))
+		(VAR_DECL (TYPE int)(NAME v))
+		(ASSIGN_STMT
+			(NAME f)
+			(CALL_STMT (NAME Sum)
+				(ACTUAL_PARAM (FLOAT_LITERAL 41.5))
+				(ACTUAL_PARAM (FLOAT_LITERAL 0.5))
+
+)
+
+		(ASSIGN_STMT
+			(NAME v)
+			(CALL_STMT (NAME InnerSum)
+				(ACTUAL_PARAM (INT_LITERAL 40))
+				(ACTUAL_PARAM (INT_LITERAL 2))
+
+)
+
+		(CALL_STMT (NAME print_float)
+			(ACTUAL_PARAM (NAME f))
+
+		(CALL_STMT (NAME print_int)
+			(ACTUAL_PARAM (NAME v))
+
+	)
+
+)

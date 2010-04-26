@@ -1,0 +1,13 @@
+(PROGRAM
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(FUNC_DECL (TYPE void) (NAME f)
+			(RETURN_STMT)
+
+		)
+		(RETURN_STMT 
+			(NEW (TYPE (NAME f)))
+		)
+
+	)
+
+)

@@ -23,7 +23,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 Comment		   = "//" {InputCharacter}* {LineTerminator}
 Name 	   = [:jletter:] [:jletterdigit:]*
 DecIntLiteral	=  0 | [1-9][0-9]*
-FloatLiteral    = 0.0 | [1-9][0-9]*\.[0-9][0-9]*
+FloatLiteral    = 0.0 | [0-9][0-9]*\.[0-9][0-9]*
 
 %state	STRING
  

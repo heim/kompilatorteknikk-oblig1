@@ -1,0 +1,22 @@
+(PROGRAM
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(VAR_DECL (TYPE boolean)(NAME b))
+		(VAR_DECL (TYPE string)(NAME s))
+		(VAR_DECL (TYPE boolean)(NAME b2))
+		(ASSIGN_STMT
+			(NAME s)
+			(STRING_LITERAL " bad operand ")
+)
+
+		(ASSIGN_STMT
+			(NAME b)
+			(REL_OP =
+				(INT_LITERAL 5)
+				(NAME b2)
+			)
+
+)
+
+	)
+
+)

@@ -1,0 +1,38 @@
+(PROGRAM
+	(CLASS (NAME Bogus)
+		(VAR_DECL (TYPE int)(NAME outerScope))
+	)
+
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(VAR_DECL (TYPE (NAME Bogus))(NAME outer))
+		(FUNC_DECL (TYPE void) (NAME dummy)
+			(CLASS (NAME Bogus)
+				(VAR_DECL (TYPE int)(NAME innerScope))
+			)
+			(VAR_DECL (TYPE (NAME Bogus))(NAME inner))
+			(ASSIGN_STMT
+				(NAME inner)
+				(NEW (TYPE (NAME Bogus)))
+)
+
+			(ASSIGN_STMT
+				( . (NAME inner) (NAME outerScope))
+				(INT_LITERAL 666)
+)
+
+		)
+		(ASSIGN_STMT
+			(NAME outer)
+			(NEW (TYPE (NAME Bogus)))
+)
+
+		(ASSIGN_STMT
+			( . (NAME outer) (NAME outerScope))
+			(INT_LITERAL 1337)
+)
+
+		(CALL_STMT (NAME dummy)
+
+	)
+
+)

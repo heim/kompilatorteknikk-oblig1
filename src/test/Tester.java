@@ -2,7 +2,7 @@ package test;
 
 import java.io.File;
 
-import compiler.Compiler;
+import dflat.compiler.Compiler;
 
 public class Tester {
 	private String path = null;
@@ -49,7 +49,7 @@ public class Tester {
 				if( ! shouldFail){
 					testOk = false;
 					System.out.println("BAD: Test no " + number + " failed when it shouldn't!");
-					System.out.println("Error: " + compiler.error);
+					System.out.println("Error: " + compiler.semanticError);
 				}
 				break;
 			default: 

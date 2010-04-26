@@ -1,0 +1,16 @@
+(PROGRAM
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(VAR_DECL (TYPE int)(NAME Tmp))
+		(FUNC_DECL (TYPE string) (NAME Tmp)
+			(RETURN_STMT 
+				(STRING_LITERAL " Top of the world, ma! ")
+			)
+
+		)
+		(CALL_STMT (NAME print_str)
+			(ACTUAL_PARAM (CALL_STMT (NAME Tmp)
+)
+
+	)
+
+)

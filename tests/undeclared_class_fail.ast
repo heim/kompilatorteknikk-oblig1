@@ -1,0 +1,10 @@
+(PROGRAM
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(ASSIGN_STMT
+			( . (NAME zot) (NAME bar))
+			(INT_LITERAL 42)
+)
+
+	)
+
+)
