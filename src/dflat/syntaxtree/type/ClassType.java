@@ -12,6 +12,9 @@ public class ClassType extends Type {
 		return indentTabs(indent) + "(TYPE " + name.printAst(0) + ")";
 	}
 
-	
-	
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ClassType && (this.name.equals(((ClassType)obj).name));
+    }
 }

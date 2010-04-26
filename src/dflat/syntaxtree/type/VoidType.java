@@ -8,13 +8,15 @@ package dflat.syntaxtree.type;
  * To change this template use File | Settings | File Templates.
  */
 public class VoidType extends Type {
-    @Override
-    public String typeName() {
-        return "void";  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
+    
     @Override
     public String printAst(int indent) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return indentTabs(indent) + "void";  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof VoidType;
     }
 }

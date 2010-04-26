@@ -1,5 +1,6 @@
 package dflat.parser;
 import java_cup.runtime.*;
+
 %%
 
 %class Lexer

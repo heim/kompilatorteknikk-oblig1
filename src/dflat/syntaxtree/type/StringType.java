@@ -7,4 +7,9 @@ public class StringType extends Type {
 		return indentTabs(indent) + "(TYPE string)";
 	}
 
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof StringType;
+    }
 }

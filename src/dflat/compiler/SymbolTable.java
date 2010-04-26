@@ -1,8 +1,8 @@
 package dflat.compiler;
 
+import dflat.exceptions.SymbolAlreadyDeclaredException;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
-import dflat.syntaxtree.compiler.exceptions.SymbolAlreadyDeclaredException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,8 @@ public class SymbolTable {
 
     public Type lookup(Name name) {
 
-        for(Map<Name, Type> scope : scopeStack) {
+        for(int i = scopeStack.size() - 1; i >= 0; i--) {
+            Map<Name, Type> scope = scopeStack.get(i);
             Type type = scope.get(name);
             if(type != null) return type;
         }
@@ -33,7 +34,6 @@ public class SymbolTable {
         if(currentScope.get(name) != null) {
             throw new SymbolAlreadyDeclaredException(name);
         }
-
         currentScope.put(name, type);
     }
 

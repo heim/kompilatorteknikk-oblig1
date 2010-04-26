@@ -1,4 +1,13 @@
 package dflat.parser;
+import dflat.syntaxtree.*;
+import dflat.syntaxtree.expression.literal.*;
+import dflat.syntaxtree.statement.*;
+import dflat.syntaxtree.expression.*;
+import dflat.syntaxtree.expression.op.*;
+import dflat.syntaxtree.type.*;
+import dflat.syntaxtree.param.*;
+import dflat.syntaxtree.decl.*;
+import java.util.*;
 
 parser code {:
 :};

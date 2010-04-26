@@ -19,4 +19,14 @@ public class Name extends Node implements Comparable<Name> {
         return this.name.compareTo(o.name);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof Name) && this.name.equals(((Name)other).name);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }
