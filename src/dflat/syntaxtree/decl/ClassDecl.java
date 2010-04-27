@@ -41,16 +41,11 @@ public class ClassDecl extends Decl {
 
     @Override
     public void buildSymbolTable() {
-        symbolTable.enter_scope();
         symbolTable.insert(getName(), getType());
-
+        symbolTable.enter_scope();
         for(Decl d : varDecl) {
             d.buildSymbolTable();
         }
-
         symbolTable.exit_scope();
-
     }
-
-
 }
