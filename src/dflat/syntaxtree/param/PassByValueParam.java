@@ -13,4 +13,8 @@ public class PassByValueParam extends ActualParam {
 		return indentTabs(indent) + "(ACTUAL_PARAM " + expression.printAst(0) + ")";
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
 }

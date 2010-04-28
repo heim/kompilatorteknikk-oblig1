@@ -1,8 +1,7 @@
 package dflat.compiler;
 
 import dflat.exceptions.SymbolAlreadyDeclaredException;
-import dflat.syntaxtree.type.Name;
-import dflat.syntaxtree.type.Type;
+import dflat.syntaxtree.type.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +16,16 @@ public class SymbolTable {
         scopeStack = new Stack<Map<Name, Type>>();
         currentScope = new HashMap<Name, Type>();
         scopeStack.push(currentScope);
+
+        insertBuiltInTypes();
+    }
+
+    private void insertBuiltInTypes() {
+        insert(new Name("string"), new StringType());
+        insert(new Name("int"), new IntegerType());
+        insert(new Name("bool"), new BooleanType());
+        insert(new Name("float"), new FloatType());
+        insert(new Name("void"), new VoidType());
     }
 
 
@@ -44,5 +53,21 @@ public class SymbolTable {
 
     public void exit_scope() {
         currentScope = scopeStack.pop();
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Map<Name, Type> table : scopeStack) {
+            sb.append("Scope:");
+            for (Name name : table.keySet()) {
+                sb.append(name.toString());
+                sb.append("\n");
+            }
+
+
+        }
+        return sb.toString();
     }
 }

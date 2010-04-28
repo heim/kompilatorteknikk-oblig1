@@ -13,4 +13,12 @@ public class NewExpression extends Expression {
 		return indentTabs(indent) + "(NEW " + type.printAst(0) + ")";
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
+    @Override
+    public Type getType() {
+        return null;
+    }
 }

@@ -17,5 +17,5 @@ public abstract class Decl extends Node {
     public abstract Name getName();
 
 
-    public abstract void buildSymbolTable();
+    
 }

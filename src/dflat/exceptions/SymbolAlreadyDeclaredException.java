@@ -1,11 +1,11 @@
 package dflat.exceptions;
 
-import dflat.syntaxtree.type.Name;
+import dflat.syntaxtree.Node;
 
-public class SymbolAlreadyDeclaredException extends RuntimeException {
+public class SymbolAlreadyDeclaredException extends SemanticsException {
 
-    public SymbolAlreadyDeclaredException(Name name) {
-        super(name.toString());
+    public SymbolAlreadyDeclaredException(Node name) {
+        super(name);
     }
 
 }

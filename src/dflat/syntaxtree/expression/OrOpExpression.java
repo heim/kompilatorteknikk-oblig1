@@ -1,6 +1,7 @@
 package dflat.syntaxtree.expression;
 
-import dflat.syntaxtree.expression.Expression;
+import dflat.syntaxtree.type.BooleanType;
+import dflat.syntaxtree.type.Type;
 
 public class OrOpExpression extends LogOpExpression {
 	
@@ -13,4 +14,13 @@ public class OrOpExpression extends LogOpExpression {
 		String retVal = indentTabs(indent) + "(LOG OP ||\n" + expression1.printAst(indent + 1) + "\n" + expression2.printAst(indent + 1) + "\n" + indentTabs(indent) + ")";
 		return retVal;
 	}
+
+    @Override
+    public void checkSemantics() {
+    }
+
+    @Override
+    public Type getType() {
+        return new BooleanType();
+    }
 }

@@ -1,9 +1,0 @@
-(PROGRAM
-	(FUNC_DECL (TYPE void) (NAME Main)
-		(RETURN_STMT 
-			(NEW (TYPE (NAME foobar)))
-		)
-
-	)
-
-)

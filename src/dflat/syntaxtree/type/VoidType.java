@@ -13,9 +13,18 @@ public class VoidType extends Type {
         return indentTabs(indent) + "(TYPE void)";  
     }
 
+    @Override
+    public void checkSemantics() {
+    }
+
 
     @Override
     public boolean equals(Object obj) {
         return obj instanceof VoidType;
+    }
+
+    @Override
+    public Name getName() {
+        return new Name("void");
     }
 }

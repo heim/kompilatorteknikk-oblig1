@@ -8,6 +8,10 @@ public class IntegerType extends Type {
 		return indentTabs(indent) + "(TYPE int)";
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -15,5 +19,8 @@ public class IntegerType extends Type {
     }
 
 
-    
+    @Override
+    public Name getName() {
+        return new Name("int");
+    }
 }

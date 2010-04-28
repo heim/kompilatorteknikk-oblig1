@@ -1,9 +1,0 @@
-(PROGRAM
-	(FUNC_DECL (TYPE int) (NAME Main)
-		(RETURN_STMT 
-			(INT_LITERAL 0)
-		)
-
-	)
-
-)

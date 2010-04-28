@@ -1,8 +1,0 @@
-(PROGRAM
-	(FUNC_DECL (TYPE void) (NAME Func)
-		(CALL_STMT (NAME print_str)
-			(ACTUAL_PARAM (STRING_LITERAL " Hello world! "))
-
-	)
-
-)

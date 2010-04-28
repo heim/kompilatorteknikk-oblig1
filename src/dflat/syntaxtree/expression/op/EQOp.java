@@ -7,4 +7,8 @@ public class EQOp extends RelOp {
 		return indentTabs(indent) + "=";
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
 }

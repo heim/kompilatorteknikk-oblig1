@@ -1,6 +1,8 @@
 package dflat.syntaxtree.statement;
 
 import dflat.syntaxtree.expression.Expression;
+import dflat.syntaxtree.type.Type;
+import dflat.syntaxtree.type.VoidType;
 
 import java.util.List;
 
@@ -25,4 +27,8 @@ public class IfElseStatement extends IfStatement {
 		
 	}
 
+    @Override
+    public Type getType() {
+        return new VoidType();
+    }
 }

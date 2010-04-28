@@ -140,4 +140,30 @@ public class SymbolTableTest {
         underTest.insert(new Name("outside"), new BooleanType());
 
     }
+
+
+    @Test
+    public void testHasStringByDefault() throws Exception {
+        assertEquals(new StringType(), underTest.lookup(new Name("string")));
+    }
+
+    @Test
+    public void testHasIntegerByDefault() throws Exception {
+        assertEquals(new IntegerType(), underTest.lookup(new Name("int")));
+    }
+
+    @Test
+    public void testHasBooleanByDefault() throws Exception {
+        assertEquals(new BooleanType(), underTest.lookup(new Name("bool")));
+    }
+
+    @Test
+    public void testHasFloatByDefault() throws Exception {
+        assertEquals(new FloatType(), underTest.lookup(new Name("float")));
+    }
+
+    @Test
+    public void testHasVoidByDefault() throws Exception {
+        assertEquals(new VoidType(), underTest.lookup(new Name("void")));
+    }
 }

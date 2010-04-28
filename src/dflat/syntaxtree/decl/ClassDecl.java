@@ -3,8 +3,6 @@ package dflat.syntaxtree.decl;
 import dflat.syntaxtree.type.ClassType;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
-import dflat.syntaxtree.decl.VarDecl;
-import dflat.syntaxtree.decl.Decl;
 
 import java.util.List;
 
@@ -15,7 +13,9 @@ public class ClassDecl extends Decl {
     private ClassType classType;
 
     public ClassDecl(Name name, List<VarDecl> varDecl){
-		this.name = name;
+		//TODO: Sjekk om en tom klasse gir tom liste eller null-liste
+        
+        this.name = name;
 		this.varDecl = varDecl;
         this.classType = new ClassType(name);
 	}
@@ -40,12 +40,22 @@ public class ClassDecl extends Decl {
     }
 
     @Override
-    public void buildSymbolTable() {
+    public void checkSemantics() {
+        buildSymbolTable();
+    }
+
+    private void buildSymbolTable() {
         symbolTable.insert(getName(), getType());
-        symbolTable.enter_scope();
-        for(Decl d : varDecl) {
-            d.buildSymbolTable();
+        addMembersToSymbolTable();
+    }
+
+    private void addMembersToSymbolTable() {
+        for (VarDecl decl : varDecl) {
+            symbolTable.insert(mergeName(decl.getName()), decl.getType());
         }
-        symbolTable.exit_scope();
+    }
+
+    private Name mergeName(Name memberName) {
+        return new Name(this.name.toString() + "." + memberName.toString());
     }
 }

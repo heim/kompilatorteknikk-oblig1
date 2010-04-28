@@ -6,4 +6,8 @@ public class NEQOp extends RelOp {
 		return indentTabs(indent) + "!=";
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
 }

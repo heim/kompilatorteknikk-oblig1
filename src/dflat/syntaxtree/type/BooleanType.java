@@ -7,9 +7,19 @@ public class BooleanType extends Type {
 		return indentTabs(indent) + "(TYPE boolean)";
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
 
     @Override
     public boolean equals(Object obj) {
         return obj instanceof BooleanType;
     }
+
+    @Override
+    public Name getName() {
+        return new Name("bool");
+    }
+
 }

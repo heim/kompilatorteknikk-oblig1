@@ -1,7 +1,7 @@
 package dflat.syntaxtree.expression;
 
-import dflat.syntaxtree.expression.Expression;
 import dflat.syntaxtree.expression.op.AritOp;
+import dflat.syntaxtree.type.Type;
 
 public class AritOpExpression extends OpExpression {
 
@@ -22,4 +22,12 @@ public class AritOpExpression extends OpExpression {
 		return retVal;
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
+    @Override
+    public Type getType() {
+        return null;
+    }
 }

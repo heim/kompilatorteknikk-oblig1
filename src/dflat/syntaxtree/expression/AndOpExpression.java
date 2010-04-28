@@ -1,6 +1,7 @@
 package dflat.syntaxtree.expression;
 
-import dflat.syntaxtree.expression.Expression;
+import dflat.syntaxtree.type.BooleanType;
+import dflat.syntaxtree.type.Type;
 
 public class AndOpExpression extends LogOpExpression {
 
@@ -14,4 +15,12 @@ public class AndOpExpression extends LogOpExpression {
 		return retVal;
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
+    @Override
+    public Type getType() {
+        return new BooleanType();
+    }
 }

@@ -1,6 +1,6 @@
 package dflat.syntaxtree.decl;
 
-import dflat.syntaxtree.decl.Decl;
+import dflat.exceptions.SemanticsException;
 import dflat.syntaxtree.param.Param;
 import dflat.syntaxtree.statement.Statement;
 import dflat.syntaxtree.type.Name;
@@ -23,8 +23,6 @@ public class FuncDecl extends Decl {
 		this.declList = declList;
 		this.paramList = paramList;
 		this.statementList = statementList;
-
-
 	}
 	
 	public String printAst(int indent) {
@@ -61,13 +59,37 @@ public class FuncDecl extends Decl {
     }
 
     @Override
-    public void buildSymbolTable() {
+    public void checkSemantics() {
 
         symbolTable.insert(getName(), getType());
         symbolTable.enter_scope();
-        for(Decl d : declList) {
-            d.buildSymbolTable();
-        }
+        checkReturnTypeSemantics();
+        checkParameterSemantics();
+        checkSemanticsForDeclarations();
+        checkSemanticsForStatements();
         symbolTable.exit_scope();
+    }
+
+    private void checkReturnTypeSemantics() {
+        returnType.checkSemantics();
+    }
+
+    private void checkParameterSemantics() throws SemanticsException {
+
+        for (Param param : paramList) {
+            param.checkSemantics();
+        }
+    }
+
+    private void checkSemanticsForStatements() throws SemanticsException {
+        for (Statement statement : statementList) {
+            statement.checkSemantics();
+        }
+    }
+
+    private void checkSemanticsForDeclarations() {
+        for(Decl d : declList) {
+            d.checkSemantics();
+        }
     }
 }

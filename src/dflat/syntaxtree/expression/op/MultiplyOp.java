@@ -6,4 +6,8 @@ public class MultiplyOp extends AritOp {
 		return indentTabs(indent) + "*";
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
 }

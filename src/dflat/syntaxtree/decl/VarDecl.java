@@ -28,7 +28,7 @@ public class VarDecl extends Decl {
     }
 
     @Override
-    public void buildSymbolTable() {
+    public void checkSemantics() {
         symbolTable.insert(getName(), getType());
     }
 }

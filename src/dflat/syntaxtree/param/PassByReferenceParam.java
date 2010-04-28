@@ -14,4 +14,8 @@ public class PassByReferenceParam extends ActualParam {
 		return indentTabs(indent) + "(ACTUAL_PARAM ref " + variableExpression.printAst(0) + ")";
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
 }

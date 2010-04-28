@@ -1,7 +1,8 @@
 package dflat.syntaxtree.expression;
 
-import dflat.syntaxtree.expression.Expression;
 import dflat.syntaxtree.expression.op.RelOp;
+import dflat.syntaxtree.type.BooleanType;
+import dflat.syntaxtree.type.Type;
 
 public class RelOpExpression extends OpExpression {
 
@@ -19,4 +20,12 @@ public class RelOpExpression extends OpExpression {
 		return retVal;
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
+    @Override
+    public Type getType() {
+        return new BooleanType();
+    }
 }

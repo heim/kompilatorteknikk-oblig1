@@ -49,8 +49,8 @@ public class Compiler {
             return 2; //semantic semanticError
         }
 
-        writeAST(program);
-        generateCode(program);
+        //writeAST(program);
+        //generateCode(program);
         return 0;
 
     }

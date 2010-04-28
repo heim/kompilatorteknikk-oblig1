@@ -2,6 +2,7 @@ package dflat.syntaxtree.statement;
 
 import dflat.syntaxtree.param.ActualParam;
 import dflat.syntaxtree.type.Name;
+import dflat.syntaxtree.type.Type;
 
 import java.util.List;
 
@@ -24,4 +25,13 @@ public class CallStatement extends Statement {
 		
 		return retVal;
 	}
+
+    @Override
+    public void checkSemantics() {
+    }
+
+    @Override
+    public Type getType() {
+        return symbolTable.lookup(name);
+    }
 }

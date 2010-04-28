@@ -6,4 +6,8 @@ public class LTEOp extends RelOp {
 		return indentTabs(indent) + "<=";
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
 }

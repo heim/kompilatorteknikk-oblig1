@@ -1,6 +1,0 @@
-(PROGRAM
-	(FUNC_DECL (TYPE void) (NAME Main)
-		(PARAM_DECL (TYPE int)(NAME errorhere))
-	)
-
-)

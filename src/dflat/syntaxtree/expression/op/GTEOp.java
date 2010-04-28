@@ -7,4 +7,8 @@ public class GTEOp extends RelOp {
 		 return indentTabs(indent) + ">=";
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
 }

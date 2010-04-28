@@ -7,4 +7,8 @@ public class LTOp extends RelOp {
 		return indentTabs(indent) + ">";
 	}
 
+    @Override
+    public void checkSemantics() {
+    }
+
 }
