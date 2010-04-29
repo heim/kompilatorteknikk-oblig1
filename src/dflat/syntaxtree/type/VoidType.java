@@ -27,4 +27,9 @@ public class VoidType extends Type {
     public Name getName() {
         return new Name("void");
     }
+
+    @Override
+    public boolean canBeCastTo(Type otherType) {
+        return false;
+    }
 }

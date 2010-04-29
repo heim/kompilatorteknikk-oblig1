@@ -28,6 +28,14 @@ public class IfElseStatement extends IfStatement {
 	}
 
     @Override
+    public void checkSemantics() {
+        super.checkSemantics();
+        for (Statement elseStatement : elseStatements) {
+            elseStatement.checkSemantics();
+        }
+    }
+
+    @Override
     public Type getType() {
         return new VoidType();
     }

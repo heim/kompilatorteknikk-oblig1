@@ -22,4 +22,9 @@ public class BooleanType extends Type {
         return new Name("bool");
     }
 
+    @Override
+    public boolean canBeCastTo(Type otherType) {
+        return false;
+    }
+
 }

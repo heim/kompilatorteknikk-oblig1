@@ -1,15 +1,19 @@
 package dflat.syntaxtree.decl;
 
+import dflat.compiler.SymbolTable;
+import dflat.exceptions.IncompatibleReturnTypeException;
 import dflat.exceptions.SemanticsException;
+import dflat.syntaxtree.Node;
+import dflat.syntaxtree.expression.literal.IntLiteral;
 import dflat.syntaxtree.param.Param;
+import dflat.syntaxtree.statement.ReturnStatement;
 import dflat.syntaxtree.statement.Statement;
-import dflat.syntaxtree.type.ClassType;
-import dflat.syntaxtree.type.Name;
-import dflat.syntaxtree.type.Type;
-import dflat.syntaxtree.type.VoidType;
+import dflat.syntaxtree.type.*;
+import org.junit.After;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FuncDeclTest {
 
@@ -34,7 +38,22 @@ public class FuncDeclTest {
     }
 
 
+    @Test(expected = IncompatibleReturnTypeException.class)
+    public void testCannotReturnOtherThanDeclaredReturnType() throws Exception {
+        ReturnStatement rs = new ReturnStatement(new IntLiteral("42"));
+        List<Statement> sl = new ArrayList<Statement>();
+        sl.add(rs);
 
+        FuncDecl f = new FuncDecl(
+                new Name("Function"),
+                new ArrayList<Param>(),
+                new StringType(),
+                new ArrayList<Decl>(),
+         sl);
+
+        f.checkSemantics();
+
+    }
 
     private FuncDecl makeFunctionWithReturnType(Type returnType) {
         return new FuncDecl(
@@ -46,7 +65,21 @@ public class FuncDeclTest {
         );
     }
 
+    @After
+    public void tearDown() {
+        Node n = new Node() {
+            @Override
+            public String printAst(int indent) {
+                return null;
+            }
 
+            @Override
+            public void checkSemantics() {
+                this.symbolTable = new SymbolTable();
+            }
+        };
+        n.checkSemantics();
+    }
 
 
 }

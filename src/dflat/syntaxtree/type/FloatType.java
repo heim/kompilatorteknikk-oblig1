@@ -21,4 +21,9 @@ public class FloatType extends Type {
     public Name getName() {
         return new Name("float");
     }
+
+    @Override
+    public boolean canBeCastTo(Type otherType) {
+        return false;
+    }
 }

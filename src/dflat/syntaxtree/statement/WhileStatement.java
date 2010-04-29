@@ -1,6 +1,8 @@
 package dflat.syntaxtree.statement;
 
+import dflat.exceptions.IncompatibleTypeException;
 import dflat.syntaxtree.expression.Expression;
+import dflat.syntaxtree.type.BooleanType;
 import dflat.syntaxtree.type.Type;
 import dflat.syntaxtree.type.VoidType;
 
@@ -28,6 +30,13 @@ public class WhileStatement extends Statement {
 
     @Override
     public void checkSemantics() {
+        expression.checkSemantics();
+        if(!expression.getType().equals(new BooleanType()))
+            throw new IncompatibleTypeException(expression);
+
+        for (Statement statement : statementList) {
+            statement.checkSemantics();
+        }
     }
 
     @Override

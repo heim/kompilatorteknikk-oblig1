@@ -4,6 +4,7 @@ import dflat.compiler.SymbolTable;
 import dflat.syntaxtree.Node;
 import dflat.syntaxtree.type.IntegerType;
 import dflat.syntaxtree.type.Name;
+import org.junit.After;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -15,9 +16,11 @@ public class ClassDeclTest {
 
     @Test
     public void testClassNameGetsAddedToSymbolTable() throws Exception {
-        ClassDecl underTest = new ClassDecl(new Name("Test"), new ArrayList<VarDecl>());
+        ClassDecl underTest = new ClassDecl(new Name("Test1"), new ArrayList<VarDecl>());
         underTest.checkSemantics();
-        assertNotNull(Node.getSymbolTable().lookup(new Name("Test")));
+        assertNotNull(Node.getSymbolTable().lookup(new Name("Test1")));
+
+
     }
 
 
@@ -31,13 +34,30 @@ public class ClassDeclTest {
         memberList.add(d1);
         memberList.add(d2);
 
-        ClassDecl underTest = new ClassDecl(new Name("Test"), memberList);
+        ClassDecl underTest = new ClassDecl(new Name("Test2"), memberList);
 
         underTest.checkSemantics();
         SymbolTable st = Node.getSymbolTable();
 
         
-        assertEquals(new IntegerType(), st.lookup(new Name("Test.Foo")));
-        assertNotNull(st.lookup(new Name("Test.Bar")));
+        assertEquals(new IntegerType(), st.lookup(new Name("Test2.Foo")));
+        assertNotNull(st.lookup(new Name("Test2.Bar")));
+    }
+
+
+    @After
+    public void tearDown() {
+        Node n = new Node() {
+            @Override
+            public String printAst(int indent) {
+                return null;
+            }
+
+            @Override
+            public void checkSemantics() {
+                this.symbolTable = new SymbolTable();
+            }
+        };
+        n.checkSemantics();
     }
 }

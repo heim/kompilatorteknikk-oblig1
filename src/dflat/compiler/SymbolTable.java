@@ -3,19 +3,20 @@ package dflat.compiler;
 import dflat.exceptions.SymbolAlreadyDeclaredException;
 import dflat.syntaxtree.type.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
 
 public class SymbolTable {
-    Stack<Map<Name, Type>> scopeStack;
-    Map<Name, Type> currentScope;
+    Stack<HashMap<Name, Type>> scopeStack;
+    HashMap<Name, Type> currentScope;
 
     public SymbolTable() {
-        scopeStack = new Stack<Map<Name, Type>>();
+        scopeStack = new Stack<HashMap<Name, Type>>();
         currentScope = new HashMap<Name, Type>();
-        scopeStack.push(currentScope);
+        
 
         insertBuiltInTypes();
     }
@@ -30,6 +31,11 @@ public class SymbolTable {
 
 
     public Type lookup(Name name) {
+
+        //first check current scope
+         Type currentScopeType = currentScope.get(name);
+
+        if (currentScopeType != null) return currentScopeType;
 
         for(int i = scopeStack.size() - 1; i >= 0; i--) {
             Map<Name, Type> scope = scopeStack.get(i);
@@ -47,8 +53,10 @@ public class SymbolTable {
     }
 
     public void enter_scope() {
+        HashMap<Name, Type> oldScope = (HashMap<Name, Type>) currentScope.clone();
+
+        scopeStack.push(oldScope);
         currentScope = new HashMap<Name, Type>();
-        scopeStack.push(currentScope);
     }
 
     public void exit_scope() {

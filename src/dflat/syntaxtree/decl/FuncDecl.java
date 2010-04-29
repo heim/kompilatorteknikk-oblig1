@@ -1,7 +1,9 @@
 package dflat.syntaxtree.decl;
 
+import dflat.exceptions.IncompatibleReturnTypeException;
 import dflat.exceptions.SemanticsException;
 import dflat.syntaxtree.param.Param;
+import dflat.syntaxtree.statement.ReturnStatement;
 import dflat.syntaxtree.statement.Statement;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
@@ -67,6 +69,9 @@ public class FuncDecl extends Decl {
         checkParameterSemantics();
         checkSemanticsForDeclarations();
         checkSemanticsForStatements();
+
+
+
         symbolTable.exit_scope();
     }
 
@@ -84,7 +89,19 @@ public class FuncDecl extends Decl {
     private void checkSemanticsForStatements() throws SemanticsException {
         for (Statement statement : statementList) {
             statement.checkSemantics();
+
+            if(statement instanceof ReturnStatement){
+                checkThatFunctionHasCompatibleReturnValueFor(statement);
+            }
+
         }
+    }
+
+    private void checkThatFunctionHasCompatibleReturnValueFor(Statement statement) {
+        ReturnStatement rs = (ReturnStatement) statement;
+        if(!rs.getType().canBeCastTo(this.returnType))
+            throw new IncompatibleReturnTypeException(rs);
+
     }
 
     private void checkSemanticsForDeclarations() {

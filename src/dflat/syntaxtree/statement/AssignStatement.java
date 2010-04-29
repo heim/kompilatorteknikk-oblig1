@@ -1,5 +1,6 @@
 package dflat.syntaxtree.statement;
 
+import dflat.exceptions.IncompatibleReturnTypeException;
 import dflat.syntaxtree.expression.Expression;
 import dflat.syntaxtree.expression.VariableExpression;
 import dflat.syntaxtree.type.Type;
@@ -28,8 +29,15 @@ public class AssignStatement extends Statement {
         var.checkSemantics();
         expression.checkSemantics();
 
+        varDeclAndExpMustHaveCompatibleReturnTypes();
+        
 
 
+    }
+
+    private void varDeclAndExpMustHaveCompatibleReturnTypes() {
+        if(!expression.getType().canBeCastTo(var.getType()))
+            throw new IncompatibleReturnTypeException(expression);
     }
 
 

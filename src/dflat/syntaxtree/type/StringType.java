@@ -21,4 +21,9 @@ public class StringType extends Type {
     public Name getName() {
         return new Name("string");
     }
+
+    @Override
+    public boolean canBeCastTo(Type otherType) {
+        return false;
+    }
 }

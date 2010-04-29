@@ -23,4 +23,9 @@ public class IntegerType extends Type {
     public Name getName() {
         return new Name("int");
     }
+
+    @Override
+    public boolean canBeCastTo(Type otherType) {
+        return (otherType.equals(new FloatType()) ? true : false);
+    }
 }

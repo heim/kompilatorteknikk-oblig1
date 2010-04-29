@@ -1,6 +1,5 @@
 package dflat.syntaxtree.type;
 
-import dflat.exceptions.SemanticsException;
 import dflat.exceptions.TypeNotDeclaredException;
 
 public class ClassType extends Type {
@@ -31,5 +30,10 @@ public class ClassType extends Type {
     @Override
     public Name getName() {
         return name;
+    }
+
+    @Override
+    public boolean canBeCastTo(Type otherType) {
+        return false;
     }
 }
