@@ -40,11 +40,11 @@ non terminal	VarDecl			var_decl;
 non terminal 	ClassDecl		class_decl;
 non terminal	Type		    type;
 non terminal	Type			return_type;
-non terminal	Param			param;
+non terminal	FormalParam		param;
 non terminal	List<Decl>   	decl_list;
 non terminal	List<Decl>		func_decl_list;
-non terminal 	List<Param>		param_list;
-non terminal 	List<Param>		param_decl;
+non terminal 	List<FormalParam>		param_list;
+non terminal 	List<FormalParam>		param_decl;
 non terminal	List<VarDecl>	var_decl_list;
 non terminal	List<VarDecl> 	class_var_decl;
 non terminal	List<Statement> stmt_list, opt_stmt_list;
@@ -97,16 +97,16 @@ func_decl		::= FUNC return_type:rt NAME:name LPARENT param_decl:pl RPARENT LBRAC
 
 func_decl_list ::= decl_list:dl {: RESULT = dl; :} | {: RESULT = new LinkedList<Decl>(); :};
 
-param_decl		::= param_list:pl {: RESULT = pl; :} | {: RESULT = new ArrayList<Param>();:};
+param_decl		::= param_list:pl {: RESULT = pl; :} | {: RESULT = new ArrayList<FormalParam>();:};
 
 param_list		::= param_list:pl COMMA param:p {: pl.add(p); RESULT = pl;:} 
 				|  param:p {:
-					List<Param> pl = new ArrayList<Param>();
+					List<FormalParam> pl = new ArrayList<FormalParam>();
 					pl.add(p);
 					RESULT = pl;
 				:};
 				
-param			::= REF type:t NAME:name {: RESULT = new Param(true, t, name);:} | type:t NAME:name {: RESULT = new Param(false, t, name);:};
+param			::= REF type:t NAME:name {: RESULT = new FormalParam(true, t, new Name(name));:} | type:t NAME:name {: RESULT = new FormalParam(false, t, new Name(name));:};
 
 return_type		::= RET type:t {: RESULT = t; :} | {: RESULT = null; :};
 

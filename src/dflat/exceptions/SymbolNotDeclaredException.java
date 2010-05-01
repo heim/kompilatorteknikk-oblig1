@@ -3,9 +3,9 @@ package dflat.exceptions;
 import dflat.syntaxtree.Node;
 import dflat.syntaxtree.expression.VariableExpression;
 
-public class VariableNotDeclaredException extends SemanticsException {
+public class SymbolNotDeclaredException extends SemanticsException {
 
-    public VariableNotDeclaredException(Node offendingNode) {
+    public SymbolNotDeclaredException(Node offendingNode) {
         super(offendingNode);
     }
 }

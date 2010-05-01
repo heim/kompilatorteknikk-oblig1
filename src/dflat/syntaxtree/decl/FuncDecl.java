@@ -2,9 +2,10 @@ package dflat.syntaxtree.decl;
 
 import dflat.exceptions.IncompatibleReturnTypeException;
 import dflat.exceptions.SemanticsException;
-import dflat.syntaxtree.param.Param;
+import dflat.syntaxtree.param.FormalParam;
 import dflat.syntaxtree.statement.ReturnStatement;
 import dflat.syntaxtree.statement.Statement;
+import dflat.syntaxtree.type.FunctionName;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
 import dflat.syntaxtree.type.VoidType;
@@ -13,21 +14,22 @@ import java.util.List;
 
 public class FuncDecl extends Decl {
 
-	private Name name;
+	private FunctionName name;
 	private Type returnType;
 	private List<Decl> declList;
-	private List<Param> paramList;
+	private List<FormalParam> formalParamList;
 	private List<Statement> statementList;
 
-	public FuncDecl(Name name, List<Param> paramList, Type returnType, List<Decl> declList, List<Statement> statementList) {
-		this.name = name;
+	public FuncDecl(Name name, List<FormalParam> formalParamList, Type returnType, List<Decl> declList, List<Statement> statementList) {
+		this.name = FunctionName.functionNameFactory(name, formalParamList);
 		this.returnType = returnType != null ? returnType : new VoidType();
 		this.declList = declList;
-		this.paramList = paramList;
+		this.formalParamList = formalParamList;
 		this.statementList = statementList;
 	}
-	
-	public String printAst(int indent) {
+
+
+    public String printAst(int indent) {
 		String returnTypeDesc = "(TYPE void)";
 		
 		if(returnType != null) {
@@ -35,7 +37,7 @@ public class FuncDecl extends Decl {
 		}
 		
 		String retVal = indentTabs(indent) + "(FUNC_DECL " + returnTypeDesc +" (NAME " + name + ")\n";
-		for(Param p : paramList) {
+		for(FormalParam p : formalParamList) {
 			retVal += p.printAst(indent + 1) + "\n";
 		}
 		
@@ -81,8 +83,8 @@ public class FuncDecl extends Decl {
 
     private void checkParameterSemantics() throws SemanticsException {
 
-        for (Param param : paramList) {
-            param.checkSemantics();
+        for (FormalParam formalParam : formalParamList) {
+            formalParam.checkSemantics();
         }
     }
 

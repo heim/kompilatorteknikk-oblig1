@@ -8,7 +8,7 @@ import dflat.syntaxtree.decl.FuncDecl;
 import dflat.syntaxtree.decl.VarDecl;
 import dflat.syntaxtree.expression.VariableExpression;
 import dflat.syntaxtree.param.ActualParam;
-import dflat.syntaxtree.param.Param;
+import dflat.syntaxtree.param.FormalParam;
 import dflat.syntaxtree.type.*;
 import org.junit.After;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class AssignStatementTest {
     public void testSemanticsCheckFailsWhenAssigningAFunctionWithReturnTypeIsVoid() throws Exception {
         FuncDecl func = new FuncDecl(
                 new Name("test"),
-                new ArrayList<Param>(),
+                new ArrayList<FormalParam>(),
                 new VoidType(),
                 new ArrayList<Decl>(),
                 new ArrayList<Statement>()

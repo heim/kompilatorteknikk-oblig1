@@ -9,8 +9,8 @@ public class Name extends Node implements Comparable<Name> {
 	public Name(String name) {
 		this.name = name;
 	}
-	
-	@Override
+
+    @Override
 	public String printAst(int indent) {
 		return indentTabs(indent) + "(NAME " + name + ")";
 	}

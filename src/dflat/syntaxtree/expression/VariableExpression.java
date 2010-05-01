@@ -1,7 +1,6 @@
 package dflat.syntaxtree.expression;
 
-import dflat.exceptions.TypeNotDeclaredException;
-import dflat.exceptions.VariableNotDeclaredException;
+import dflat.exceptions.SymbolNotDeclaredException;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
 
@@ -23,7 +22,7 @@ public class VariableExpression extends Expression {
         Type t = symbolTable.lookup(name);
         this.type = t;
         if(t == null)
-            throw new VariableNotDeclaredException(this);
+            throw new SymbolNotDeclaredException(this);
 
     }
 

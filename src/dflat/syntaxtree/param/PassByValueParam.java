@@ -1,6 +1,7 @@
 package dflat.syntaxtree.param;
 
 import dflat.syntaxtree.expression.Expression;
+import dflat.syntaxtree.type.Type;
 
 public class PassByValueParam extends ActualParam {
 
@@ -18,4 +19,8 @@ public class PassByValueParam extends ActualParam {
         
     }
 
+    @Override
+    public Type getType() {
+        return null;
+    }
 }

@@ -1,6 +1,11 @@
 package dflat.syntaxtree.statement;
 
+import dflat.exceptions.SymbolNotDeclaredException;
 import dflat.syntaxtree.param.ActualParam;
+import dflat.syntaxtree.param.FormalParam;
+import dflat.syntaxtree.param.Param;
+import dflat.syntaxtree.param.PassByReferenceParam;
+import dflat.syntaxtree.type.FunctionName;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
 
@@ -8,11 +13,11 @@ import java.util.List;
 
 public class CallStatement extends Statement {
 
-	private Name name;
+	private FunctionName name;
 	private List<ActualParam> actualParamList;
 
 	public CallStatement(Name name, List<ActualParam> actualParamList) {
-		this.name = name;
+		this.name = FunctionName.functionNameFactory(name, actualParamList);
 		this.actualParamList = actualParamList;
 	}
 	
@@ -28,6 +33,11 @@ public class CallStatement extends Statement {
 
     @Override
     public void checkSemantics() {
+        if(symbolTable.lookup(name) == null)
+            throw new SymbolNotDeclaredException(this);
+
+
+
     }
 
     @Override

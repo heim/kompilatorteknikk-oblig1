@@ -1,0 +1,5 @@
+Rapport oblig 2.
+
+Design decisions.
+
+La til Type.canBeCastTo(otherType), selv om denne bare gjelder mellom int og float. Kan være nyttig ifb klasser, arv etc.
