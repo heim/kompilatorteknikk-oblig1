@@ -6,6 +6,7 @@ import dflat.syntaxtree.Node;
 import dflat.syntaxtree.decl.Decl;
 import dflat.syntaxtree.decl.FuncDecl;
 import dflat.syntaxtree.decl.VarDecl;
+import dflat.syntaxtree.expression.Expression;
 import dflat.syntaxtree.expression.VariableExpression;
 import dflat.syntaxtree.param.ActualParam;
 import dflat.syntaxtree.param.FormalParam;
@@ -14,6 +15,7 @@ import org.junit.After;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AssignStatementTest {
 
@@ -25,7 +27,7 @@ public class AssignStatementTest {
                 new ArrayList<FormalParam>(),
                 new VoidType(),
                 new ArrayList<Decl>(),
-                new ArrayList<Statement>()
+                makStatmentListWithReturnStatement(new VoidType())
         );
 
         func.checkSemantics();
@@ -40,6 +42,26 @@ public class AssignStatementTest {
         AssignStatement as = new AssignStatement(var, callStatement);
 
         as.checkSemantics();
+    }
+
+    private List<Statement> makStatmentListWithReturnStatement(final Type type) {
+        List<Statement> sl =  new ArrayList<Statement>();
+        sl.add(new ReturnStatement(new Expression() {
+            @Override
+            public Type getType() {
+                return type;
+            }
+
+            @Override
+            public String printAst(int indent) {
+                return null;
+            }
+
+            @Override
+            public void checkSemantics() {
+            }
+        }));
+        return sl;
     }
 
 

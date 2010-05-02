@@ -4,7 +4,11 @@ import dflat.syntaxtree.Node;
 
 public class Name extends Node implements Comparable<Name> {
 
-	private String name;
+    public String getName() {
+        return name;
+    }
+
+    private String name;
 
 	public Name(String name) {
 		this.name = name;

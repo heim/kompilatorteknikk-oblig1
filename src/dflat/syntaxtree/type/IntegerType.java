@@ -26,6 +26,8 @@ public class IntegerType extends Type {
 
     @Override
     public boolean canBeCastTo(Type otherType) {
-        return (otherType.equals(new FloatType()) ? true : false);
+         //return otherType instanceof IntegerType;
+        return  otherType instanceof IntegerType || otherType instanceof FloatType;
     }
+
 }

@@ -6,4 +6,9 @@ public class IncompatibleTypeException extends SemanticsException {
     public IncompatibleTypeException(Node offendingNode) {
         super(offendingNode);
     }
+
+    @Override
+    public String getMessage() {
+        return "Incompatible Type";
+    }
 }

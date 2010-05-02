@@ -1,6 +1,8 @@
 package dflat.syntaxtree.decl;
 
+import dflat.exceptions.FunctionMustHaveReturnStatementException;
 import dflat.exceptions.IncompatibleReturnTypeException;
+import dflat.exceptions.MainFunctionDeclarationException;
 import dflat.exceptions.SemanticsException;
 import dflat.syntaxtree.param.FormalParam;
 import dflat.syntaxtree.statement.ReturnStatement;
@@ -64,10 +66,13 @@ public class FuncDecl extends Decl {
 
     @Override
     public void checkSemantics() {
+        System.out.println(printAst(0));
+        
+        ifIsMainFunctionCheckParametersAndReturnType();
 
+        checkReturnTypeSemantics();
         symbolTable.insert(getName(), getType());
         symbolTable.enter_scope();
-        checkReturnTypeSemantics();
         checkParameterSemantics();
         checkSemanticsForDeclarations();
         checkSemanticsForStatements();
@@ -75,6 +80,22 @@ public class FuncDecl extends Decl {
 
 
         symbolTable.exit_scope();
+    }
+
+    private void ifIsMainFunctionCheckParametersAndReturnType() {
+        if(name.getName().equals("Main")) {
+            if(hasParameters() || hasOtherReturnTypeThanVoid()) {
+                throw new MainFunctionDeclarationException(this);
+            }
+        }
+    }
+
+    private boolean hasOtherReturnTypeThanVoid() {
+        return !returnType.equals(new VoidType());
+    }
+
+    private boolean hasParameters() {
+        return !formalParamList.isEmpty();
     }
 
     private void checkReturnTypeSemantics() {
@@ -89,14 +110,19 @@ public class FuncDecl extends Decl {
     }
 
     private void checkSemanticsForStatements() throws SemanticsException {
+        int returnStatementsCount = 0;
         for (Statement statement : statementList) {
             statement.checkSemantics();
 
             if(statement instanceof ReturnStatement){
                 checkThatFunctionHasCompatibleReturnValueFor(statement);
+                returnStatementsCount++;
             }
 
         }
+
+        if(returnStatementsCount < 1 && !this.returnType.equals(new VoidType()))
+            throw new FunctionMustHaveReturnStatementException(this);
     }
 
     private void checkThatFunctionHasCompatibleReturnValueFor(Statement statement) {

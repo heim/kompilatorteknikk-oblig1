@@ -24,6 +24,6 @@ public class StringType extends Type {
 
     @Override
     public boolean canBeCastTo(Type otherType) {
-        return false;
+        return otherType instanceof StringType;
     }
 }

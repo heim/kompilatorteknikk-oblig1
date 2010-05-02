@@ -19,6 +19,6 @@ public class NewExpression extends Expression {
 
     @Override
     public Type getType() {
-        return null;
+        return type;
     }
 }

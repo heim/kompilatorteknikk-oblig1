@@ -34,6 +34,6 @@ public class ClassType extends Type {
 
     @Override
     public boolean canBeCastTo(Type otherType) {
-        return false;
+        return otherType instanceof ClassType && (otherType.getName().equals(getName()));
     }
 }

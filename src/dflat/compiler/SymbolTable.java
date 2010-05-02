@@ -9,6 +9,10 @@ import java.util.Map;
 import java.util.Stack;
 
 
+/*TODO:
+    Hvis man slår opp type som er deklarert flere ganger så kan man risikere å ikke få semantikkfeil ved aksess av
+    variable som er deklarert av klassen utenfor scope. dritt.
+  */
 public class SymbolTable {
     Stack<HashMap<Name, Type>> scopeStack;
     HashMap<Name, Type> currentScope;

@@ -8,4 +8,9 @@ public class TypeNotDeclaredException extends SemanticsException {
     public TypeNotDeclaredException(Node offendingNode) {
         super(offendingNode);
     }
+
+    @Override
+    public String getMessage() {
+        return "Type not declared.";
+    }
 }

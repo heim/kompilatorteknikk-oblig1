@@ -8,4 +8,8 @@ public class SymbolAlreadyDeclaredException extends SemanticsException {
         super(name);
     }
 
+    @Override
+    public String getMessage() {
+        return "Symbol already declared. " + offendingNode.printAst(0);
+    }
 }

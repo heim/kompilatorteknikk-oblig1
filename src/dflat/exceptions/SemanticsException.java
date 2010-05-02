@@ -4,7 +4,7 @@ import dflat.syntaxtree.Node;
 import dflat.syntaxtree.type.ClassType;
 
 public class SemanticsException extends RuntimeException {
-    private Node offendingNode;
+    protected Node offendingNode;
 
     public SemanticsException(Node offendingNode) {
         this.offendingNode = offendingNode;

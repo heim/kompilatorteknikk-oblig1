@@ -8,4 +8,9 @@ public class SymbolNotDeclaredException extends SemanticsException {
     public SymbolNotDeclaredException(Node offendingNode) {
         super(offendingNode);
     }
+
+    @Override
+    public String getMessage() {
+        return "Symbol not declared";
+    }
 }

@@ -30,14 +30,19 @@ public class AssignStatement extends Statement {
         expression.checkSemantics();
 
         varDeclAndExpMustHaveCompatibleReturnTypes();
-        
+
 
 
     }
 
     private void varDeclAndExpMustHaveCompatibleReturnTypes() {
-        if(!expression.getType().canBeCastTo(var.getType()))
+        Type expressionType = expression.getType();
+        Type varType = var.getType();
+        if(!expressionType.canBeCastTo(varType)) {
+            System.out.println("expressionType = " + expressionType.getName());
             throw new IncompatibleReturnTypeException(expression);
+
+        }
     }
 
 

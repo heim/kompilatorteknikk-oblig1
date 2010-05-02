@@ -7,6 +7,7 @@ import java_cup.runtime.*;
 %unicode
 %cup
 %line
+%char
 %column
 %public
 %{
@@ -54,7 +55,7 @@ FloatLiteral    = 0.0 | [0-9][0-9]*\.[0-9][0-9]*
 	{DecIntLiteral}		{ return symbol(sym.DEC_INT_LITERAL, yytext());}
 	{FloatLiteral}		{ return symbol(sym.FLOAT_LITERAL, yytext());}
 	\"                  { string.setLength(0); yybegin(STRING); }
-	{Name}				{ return symbol(sym.NAME, yytext());}	
+	{Name}				{ return symbol(sym.NAME, yytext());}
 	";"					{ return symbol(sym.SEMI);}
 	"{"				    { return symbol(sym.LBRACK);}
 	"}"				    { return symbol(sym.RBRACK);}

@@ -44,7 +44,7 @@ public class Compiler {
         try {
             program.checkSemantics();
         } catch (SemanticsException e) {
-
+            //ystem.out.println("e.getClass().getSimpleName() = " + e.getClass().getSimpleName());
             this.semanticError = e.getMessage();
             return 2; //semantic semanticError
         }

@@ -4,16 +4,19 @@ import dflat.exceptions.SymbolNotDeclaredException;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
 
+import javax.naming.OperationNotSupportedException;
+
 public class VariableExpression extends Expression {
 
 	protected Name name;
-    private Type type;
+    protected Type type;
 
     public VariableExpression(Name name) {
 		this.name = name;
 	}
-	
-	public String printAst(int indent) {
+
+
+    public String printAst(int indent) {
 		return name.printAst(indent);
 	}
 
