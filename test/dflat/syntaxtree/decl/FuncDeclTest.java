@@ -74,9 +74,9 @@ public class FuncDeclTest {
 
         fd.checkSemantics();
 
-        List<Type> tl = new ArrayList<Type>();
-        tl.add(p1Type);
-        tl.add(p2Type);
+        List<FormalParam> tl = new ArrayList<FormalParam>();
+        tl.add(new FormalParam(false, p1Type, new Name("foo")));
+        tl.add(new FormalParam(false, p2Type, new Name("foo2")));
 
         FunctionName fn = new FunctionName(functionName, tl);
 

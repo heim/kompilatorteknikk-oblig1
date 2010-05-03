@@ -29,9 +29,17 @@ public class FormalParam extends Param {
             throw new SemanticsException(this);
 
         }
+        symbolTable.insert(name, type);
     }
 
     public Type getType() {
         return type;
     }
+
+    @Override
+    public boolean getIsRef() {
+        return ref;
+    }
+
+
 }

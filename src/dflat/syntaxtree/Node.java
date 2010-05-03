@@ -1,5 +1,6 @@
 package dflat.syntaxtree;
 
+import bytecode.CodeFile;
 import dflat.compiler.SymbolTable;
 import dflat.exceptions.SemanticsException;
 
@@ -25,4 +26,5 @@ public abstract class Node {
 	}
 
     public abstract void checkSemantics();
+
 }

@@ -1,5 +1,6 @@
 package dflat.syntaxtree.decl;
 
+import bytecode.CodeFile;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
 
@@ -30,5 +31,9 @@ public class VarDecl extends Decl {
     @Override
     public void checkSemantics() {
         symbolTable.insert(getName(), getType());
+    }
+
+    @Override
+    public void generateCode(CodeFile codeFile) {
     }
 }

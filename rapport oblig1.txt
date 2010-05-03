@@ -3,3 +3,15 @@ Rapport oblig 2.
 Design decisions.
 
 La til Type.canBeCastTo(otherType), selv om denne bare gjelder mellom int og float. Kan være nyttig ifb klasser, arv etc.
+
+
+//i alle henseender innenfor kompilatoren vil en int være likeverdig en float.
+
+
+
+
+isRef i Param.
+
+Paramklassen tar for seg equals for alle subklasser. konsekvens av at metodesignatur ligger i name.
+må støtte sammenlikning av formalparam og actualparam.
+sjekking mot riktig signatur, ref eller ikke osv gjøres nå i signaturliste sin equals. altså java util.

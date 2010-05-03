@@ -11,4 +11,11 @@ public abstract class OpExpression extends Expression {
 		this.expression1 = exp1;
 		this.expression2 = exp2;
 	}
+
+
+    @Override
+    public void checkSemantics() {
+        expression2.checkSemantics();
+        expression1.checkSemantics();
+    }
 }

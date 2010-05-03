@@ -1,5 +1,6 @@
 package dflat.syntaxtree.decl;
 
+import bytecode.CodeFile;
 import dflat.syntaxtree.type.ClassType;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
@@ -45,6 +46,10 @@ public class ClassDecl extends Decl {
     @Override
     public void checkSemantics() {
         buildSymbolTable();
+    }
+
+    @Override
+    public void generateCode(CodeFile codeFile) {
     }
 
     private void buildSymbolTable() {

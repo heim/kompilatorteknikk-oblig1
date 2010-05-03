@@ -30,7 +30,7 @@ public class IfStatement extends Statement {
     @Override
     public void checkSemantics() {
         expression.checkSemantics();
-        if(!expression.getType().equals(new BooleanType()))
+        if(!expressionIsBoolean())
             throw new IncompatibleTypeException(expression);
 
         for (Statement statement : statements) {
@@ -38,6 +38,10 @@ public class IfStatement extends Statement {
         }
 
         
+    }
+
+    private boolean expressionIsBoolean() {
+        return expression.getType().equals(new BooleanType());
     }
 
     @Override

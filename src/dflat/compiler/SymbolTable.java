@@ -40,8 +40,8 @@ public class SymbolTable {
         Type currentScopeType = currentScope.get(name);
 
         if (currentScopeType != null) {
-            System.out.println("currentScopeType.getName() = " + currentScopeType.getName());
-            return currentScopeType;}
+            return currentScopeType;
+        }
 
 
 

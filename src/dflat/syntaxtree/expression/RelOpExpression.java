@@ -1,7 +1,9 @@
 package dflat.syntaxtree.expression;
 
+import dflat.exceptions.IncompatibleTypeException;
 import dflat.syntaxtree.expression.op.RelOp;
 import dflat.syntaxtree.type.BooleanType;
+import dflat.syntaxtree.type.FloatType;
 import dflat.syntaxtree.type.Type;
 
 public class RelOpExpression extends OpExpression {
@@ -22,6 +24,13 @@ public class RelOpExpression extends OpExpression {
 
     @Override
     public void checkSemantics() {
+        super.checkSemantics();
+        if(!bothExpressionsCanBeCastToFloat())
+            throw new IncompatibleTypeException(this);
+    }
+
+    private boolean bothExpressionsCanBeCastToFloat() {
+        return expression1.getType().equals(new FloatType()) && expression2.getType().equals(new FloatType());
     }
 
     @Override

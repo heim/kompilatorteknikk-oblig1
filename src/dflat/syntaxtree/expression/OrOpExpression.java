@@ -17,6 +17,7 @@ public class OrOpExpression extends LogOpExpression {
 
     @Override
     public void checkSemantics() {
+        super.checkSemantics();
     }
 
     @Override

@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FunctionName extends Name{
-    private List<Type> signature;
+    private List<? extends Param> signature;
 
-    public FunctionName(Name functionName, List<Type> signature) {
+    public FunctionName(Name functionName, List<? extends Param> signature) {
         super(functionName.toString());
         this.signature = signature;
     }
@@ -30,25 +30,21 @@ public class FunctionName extends Name{
     }
 
     public static FunctionName functionNameFactory(Name name, List<? extends Param> paramList) {
-        List<Type> signature = new ArrayList<Type>();
-        for (Param param : paramList) {
-            signature.add(param.getType());
-        }
-        return new FunctionName(name, signature);
+        return new FunctionName(name, paramList);
     }
 
     @Override
     public String toString() {
-        String ret =  "Function name: " + name.toString() +"\n";
-        for (Type type : signature) {
-            if(type == null) {
+        String ret =  "Function name: " + name.toString() +"(";
+        for (Param param : signature) {
+            if(param == null) {
                 System.out.println("WARNING! Function name: " + name.toString() + " has null type as signature.");
 
             }else{
-                ret += type.getName() + "\n";
+                ret += param.toString() + ", ";
             }
         }
-        return ret;
+        return ")" + ret;
 
     }
 }

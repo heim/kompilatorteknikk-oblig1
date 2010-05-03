@@ -23,4 +23,9 @@ public class PassByValueParam extends ActualParam {
     public Type getType() {
         return expression.getType();
     }
+
+    @Override
+    public boolean getIsRef() {
+        return false;
+    }
 }

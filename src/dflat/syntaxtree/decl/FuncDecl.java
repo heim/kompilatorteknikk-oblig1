@@ -1,5 +1,6 @@
 package dflat.syntaxtree.decl;
 
+import bytecode.CodeFile;
 import dflat.exceptions.FunctionMustHaveReturnStatementException;
 import dflat.exceptions.IncompatibleReturnTypeException;
 import dflat.exceptions.MainFunctionDeclarationException;
@@ -80,6 +81,10 @@ public class FuncDecl extends Decl {
 
 
         symbolTable.exit_scope();
+    }
+
+    @Override
+    public void generateCode(CodeFile codeFile) {
     }
 
     private void ifIsMainFunctionCheckParametersAndReturnType() {

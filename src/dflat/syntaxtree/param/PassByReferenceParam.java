@@ -24,4 +24,9 @@ public class PassByReferenceParam extends ActualParam {
     public Type getType() {
         return variableExpression.getType();
     }
+
+    @Override
+    public boolean getIsRef() {
+        return true;
+    }
 }

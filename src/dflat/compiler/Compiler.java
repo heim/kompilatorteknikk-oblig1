@@ -69,17 +69,21 @@ public class Compiler {
     }
     public static void main(String[] args) {
         Compiler compiler = new Compiler(args[0], args[1], args[2]);
-        int result;
+        int result = 0;
         try {
             result = compiler.compile();
             if(result == 1){
                 System.out.println(compiler.syntaxError);
+                System.exit(result);
             } else if(result == 2){
                 System.out.println(compiler.semanticError);
+                System.exit(result);
+            } else {
+                System.out.println("All ok");
             }
-            System.exit(result);
+
         } catch (Exception e) {
-            System.out.println("ERROR: " + e);
+            System.out.println("KukERROR: " + e);
             // If unknown semanticError.
             System.exit(3);
         }

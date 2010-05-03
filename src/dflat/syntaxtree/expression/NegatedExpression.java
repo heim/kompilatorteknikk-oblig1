@@ -1,5 +1,6 @@
 package dflat.syntaxtree.expression;
 
+import dflat.exceptions.IncompatibleTypeException;
 import dflat.syntaxtree.type.BooleanType;
 import dflat.syntaxtree.type.Type;
 
@@ -17,6 +18,14 @@ public class NegatedExpression extends Expression {
 
     @Override
     public void checkSemantics() {
+        expression.checkSemantics();
+        if(!expressionIsBoolean()) {
+            throw new IncompatibleTypeException(this);
+        }
+    }
+
+    private boolean expressionIsBoolean() {
+        return expression.getType().equals(new BooleanType());
     }
 
     @Override

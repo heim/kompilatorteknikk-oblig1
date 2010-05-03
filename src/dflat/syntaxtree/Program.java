@@ -1,7 +1,9 @@
 package dflat.syntaxtree;
 
 import bytecode.CodeFile;
+import dflat.exceptions.MainFunctionDeclarationException;
 import dflat.exceptions.SemanticsException;
+import dflat.syntaxtree.decl.ClassDecl;
 import dflat.syntaxtree.decl.Decl;
 import dflat.syntaxtree.decl.FuncDecl;
 import dflat.syntaxtree.expression.Expression;
@@ -111,6 +113,10 @@ public class Program  {
             @Override
             public void checkSemantics() {
             }
+
+            @Override
+            public void generateCode(CodeFile codeFile) {
+            }
         });
         smList.add(rs);
 
@@ -152,14 +158,20 @@ public class Program  {
 
 
     public void generateCode(CodeFile codeFile) {
-
+        for (Decl decl : declList) {
+            decl.generateCode(codeFile);
+        }
     }
 
     public void checkSemantics() throws SemanticsException {
         addLibraryFunctions();
+
+
         for(Decl d : declList) {
             d.checkSemantics();
         }
+        if(Node.getSymbolTable().lookup(new Name("Main")) == null)
+            throw new MainFunctionDeclarationException(null);
 
     }
 }

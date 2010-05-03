@@ -3,6 +3,7 @@ package dflat.syntaxtree.statement;
 import dflat.exceptions.SymbolNotDeclaredException;
 import dflat.syntaxtree.Node;
 import dflat.syntaxtree.param.ActualParam;
+import dflat.syntaxtree.param.FormalParam;
 import dflat.syntaxtree.type.*;
 import org.junit.Test;
 
@@ -35,8 +36,8 @@ public class CallStatementTest  {
 
 
     private FunctionName createFunctionName(Type signature1) {
-        List<Type> signatureList = new ArrayList<Type>();
-        signatureList.add(signature1);
+        List<FormalParam> signatureList = new ArrayList<FormalParam>();
+        signatureList.add(new FormalParam(false, signature1, new Name("booFar")));
 
         return new FunctionName(new Name("foo"), signatureList);
     }
@@ -56,6 +57,11 @@ public class CallStatementTest  {
 
             public Type getType() {
                 return type;
+            }
+
+            @Override
+            public boolean getIsRef() {
+                return false;
             }
         };
     }

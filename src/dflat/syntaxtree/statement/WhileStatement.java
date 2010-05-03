@@ -31,12 +31,16 @@ public class WhileStatement extends Statement {
     @Override
     public void checkSemantics() {
         expression.checkSemantics();
-        if(!expression.getType().equals(new BooleanType()))
+        if(!expressionIsBoolean())
             throw new IncompatibleTypeException(expression);
 
         for (Statement statement : statementList) {
             statement.checkSemantics();
         }
+    }
+
+    private boolean expressionIsBoolean() {
+        return expression.getType().equals(new BooleanType());
     }
 
     @Override

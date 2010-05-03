@@ -15,7 +15,8 @@ public class IntegerType extends Type {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof IntegerType;
+        //i alle henseender innenfor kompilatoren vil en int være likeverdig en float.
+        return obj instanceof Type && canBeCastTo((Type)obj);
     }
 
 
