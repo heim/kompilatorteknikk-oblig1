@@ -4,6 +4,7 @@ import dflat.syntaxtree.type.ClassType;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClassDecl extends Decl {
@@ -17,10 +18,12 @@ public class ClassDecl extends Decl {
         
         this.name = name;
 		this.varDecl = varDecl;
-        this.classType = new ClassType(name);
+        this.classType = new ClassType(name, varDecl);
 	}
-	
-	@Override
+
+
+
+    @Override
 	public String printAst(int indent) {
 		String retval = indentTabs(indent) + "(CLASS "+ name.printAst(0) +"\n";
 		for(VarDecl d :varDecl) {
@@ -46,14 +49,9 @@ public class ClassDecl extends Decl {
 
     private void buildSymbolTable() {
         symbolTable.insert(getName(), getType());
-        addMembersToSymbolTable();
+    
     }
 
-    private void addMembersToSymbolTable() {
-        for (VarDecl decl : varDecl) {
-            symbolTable.insert(mergeName(decl.getName()), decl.getType());
-        }
-    }
 
     private Name mergeName(Name memberName) {
         return new Name(this.name.toString() + "." + memberName.toString());

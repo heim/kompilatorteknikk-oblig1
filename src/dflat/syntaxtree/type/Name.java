@@ -8,7 +8,7 @@ public class Name extends Node implements Comparable<Name> {
         return name;
     }
 
-    private String name;
+    protected String name;
 
 	public Name(String name) {
 		this.name = name;

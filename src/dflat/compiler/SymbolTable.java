@@ -37,14 +37,21 @@ public class SymbolTable {
     public Type lookup(Name name) {
 
         //first check current scope
-         Type currentScopeType = currentScope.get(name);
+        Type currentScopeType = currentScope.get(name);
 
-        if (currentScopeType != null) return currentScopeType;
+        if (currentScopeType != null) {
+            System.out.println("currentScopeType.getName() = " + currentScopeType.getName());
+            return currentScopeType;}
 
-        for(int i = scopeStack.size() - 1; i >= 0; i--) {
+
+
+        for(int i = scopeStack.size() - 1; i > -1; i--) {
             Map<Name, Type> scope = scopeStack.get(i);
             Type type = scope.get(name);
-            if(type != null) return type;
+            if(type != null) {
+
+                return type;
+            }
         }
         return null;
     }
@@ -71,8 +78,15 @@ public class SymbolTable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("Current scope: \n");
+        for (Name name : currentScope.keySet()) {
+            sb.append(name.toString());
+            sb.append("\n");
+        }
+
+
         for (Map<Name, Type> table : scopeStack) {
-            sb.append("Scope:");
+            sb.append("Scope: \n");
             for (Name name : table.keySet()) {
                 sb.append(name.toString());
                 sb.append("\n");

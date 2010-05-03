@@ -66,9 +66,9 @@ public class FuncDecl extends Decl {
 
     @Override
     public void checkSemantics() {
-        System.out.println(printAst(0));
         
         ifIsMainFunctionCheckParametersAndReturnType();
+
 
         checkReturnTypeSemantics();
         symbolTable.insert(getName(), getType());

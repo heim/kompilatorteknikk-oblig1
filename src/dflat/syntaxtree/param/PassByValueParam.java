@@ -16,11 +16,11 @@ public class PassByValueParam extends ActualParam {
 
     @Override
     public void checkSemantics() {
-        
+        expression.checkSemantics();
     }
 
     @Override
     public Type getType() {
-        return null;
+        return expression.getType();
     }
 }

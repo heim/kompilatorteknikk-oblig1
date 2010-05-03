@@ -10,6 +10,6 @@ public class SymbolAlreadyDeclaredException extends SemanticsException {
 
     @Override
     public String getMessage() {
-        return "Symbol already declared. " + offendingNode.printAst(0);
+        return "Symbol already declared. ";
     }
 }

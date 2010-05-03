@@ -28,11 +28,15 @@ public class ObjectVariableExpression extends VariableExpression {
     }
 
     private Type getDeclaredTypeFromClass() {
-        Type t = symbolTable.lookup(new Name(expression.getType().getName() + "." + name.toString()));
-        if (t == null)
-            throw new SymbolNotDeclaredException(this);
+        ClassType classType = (ClassType)symbolTable.lookup(expression.getType().getName());
+        if(classType != null) {
+            Type memberType = classType.hasMember(name);
+            if(memberType != null)
+                return memberType;
 
-        return t;
+        }
+        throw new SymbolNotDeclaredException(this);
+
     }
 
     private void checkReturnTypeIsClassType() {

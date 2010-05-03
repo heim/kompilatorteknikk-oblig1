@@ -17,10 +17,12 @@ public class PassByReferenceParam extends ActualParam {
 
     @Override
     public void checkSemantics() {
+        variableExpression.checkSemantics();
     }
 
     @Override
     public Type getType() {
-        return null;
+         //TODO: IMPLEMENT DA SHITTTTFUCCKERRSS!!!
+        return variableExpression.getType();
     }
 }

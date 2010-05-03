@@ -43,6 +43,9 @@ public class Tester {
                 Compiler compiler = new Compiler(this.path + File.separator + filename,
                         this.path + File.separator + outFileName(filename, ".ast"),
                         this.path + File.separator + outFileName(filename, ".bin"));
+
+
+
                 if( ! testCompiler(compiler, shouldFail, i+1))
                     failed++;
             }
@@ -82,6 +85,7 @@ public class Tester {
             e.printStackTrace();
             System.exit(1);
         }
+        System.out.println("Error: " + compiler.semanticError);
         return testOk;
     }
 

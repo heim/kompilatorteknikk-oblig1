@@ -24,8 +24,5 @@ public abstract class Node {
 		return indentTabs;
 	}
 
-    
-
-
     public abstract void checkSemantics();
 }

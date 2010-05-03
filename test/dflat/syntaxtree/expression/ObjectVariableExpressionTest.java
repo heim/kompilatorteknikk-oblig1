@@ -29,16 +29,16 @@ public class ObjectVariableExpressionTest {
 
     @Test(expected = SymbolNotDeclaredException.class)
     public void testSemanticCheckFailsIfClassDoesNotHaveVariableDeclaration() throws Exception {
-        makeClass("myClass", "myVar");
-        ObjectVariableExpression underTest = new ObjectVariableExpression(expressionMock(new ClassType(name("myClass"))), name("notMyVar"));
+        ClassType ct = makeClass("myClass", "myVar");
+        ObjectVariableExpression underTest = new ObjectVariableExpression(expressionMock(ct), name("notMyVar"));
         underTest.checkSemantics();
     }
 
 
     @Test
     public void testSemCheckPassesIfClassHasVariableDeclaration() throws Exception {
-        makeClass("myClass2", "myVar");
-        ObjectVariableExpression underTest = new ObjectVariableExpression(expressionMock(new ClassType(name("myClass2"))), name("myVar"));
+        ClassType ct = makeClass("myClass2", "myVar");
+        ObjectVariableExpression underTest = new ObjectVariableExpression(expressionMock(ct), name("myVar"));
         underTest.checkSemantics();
 
     }
@@ -47,23 +47,24 @@ public class ObjectVariableExpressionTest {
 
     @Test
     public void testReturnsCorrectType() throws Exception {
-        makeClass("myClass2", "myVar",  new IntegerType());
-        ObjectVariableExpression underTest = new ObjectVariableExpression(expressionMock(new ClassType(name("myClass2"))), name("myVar"));
+        ClassType ct = makeClass("myClass2", "myVar",  new IntegerType());
+        ObjectVariableExpression underTest = new ObjectVariableExpression(expressionMock(ct) , name("myVar"));
         underTest.checkSemantics();
         assertEquals(new IntegerType(), underTest.getType());
     }
 
-    private void makeClass(String name, String var) {
-        makeClass(name, var, new IntegerType());
+    private ClassType makeClass(String name, String var) {
+        return makeClass(name, var, new IntegerType());
     }
 
-    private void makeClass(String name, String var, Type type) {
+    private ClassType makeClass(String name, String var, Type type) {
         List<VarDecl> vdl = new ArrayList<VarDecl>();
         VarDecl vd = new VarDecl(type, name(var));
         vd.checkSemantics();
         vdl.add(vd);
         ClassDecl cd = new ClassDecl(name(name), vdl);
         cd.checkSemantics();
+        return (ClassType)cd.getType();
     }
 
     private Expression expressionMock(final Type type) {

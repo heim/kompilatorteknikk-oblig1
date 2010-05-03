@@ -2,6 +2,7 @@ package dflat.syntaxtree.decl;
 
 import dflat.compiler.SymbolTable;
 import dflat.syntaxtree.Node;
+import dflat.syntaxtree.type.ClassType;
 import dflat.syntaxtree.type.IntegerType;
 import dflat.syntaxtree.type.Name;
 import org.junit.After;
@@ -40,8 +41,8 @@ public class ClassDeclTest {
         SymbolTable st = Node.getSymbolTable();
 
         
-        assertEquals(new IntegerType(), st.lookup(new Name("Test2.Foo")));
-        assertNotNull(st.lookup(new Name("Test2.Bar")));
+        //assertEquals(new IntegerType(), st.lookup(new Name("Test2.Foo")));
+        assertNotNull(((ClassType)st.lookup(new Name("Test2"))).hasMember(new Name("Bar")));
     }
 
 

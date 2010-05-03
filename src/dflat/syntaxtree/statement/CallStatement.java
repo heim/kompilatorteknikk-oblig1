@@ -5,6 +5,7 @@ import dflat.syntaxtree.param.ActualParam;
 import dflat.syntaxtree.param.FormalParam;
 import dflat.syntaxtree.param.Param;
 import dflat.syntaxtree.param.PassByReferenceParam;
+import dflat.syntaxtree.type.ClassType;
 import dflat.syntaxtree.type.FunctionName;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
@@ -33,8 +34,19 @@ public class CallStatement extends Statement {
 
     @Override
     public void checkSemantics() {
-        if(symbolTable.lookup(name) == null)
+        
+        if(symbolTable.lookup(name) == null) {
+            System.out.println("symbolTable.toString() = " + symbolTable.toString());
+            for (ActualParam actualParam : actualParamList) {
+                System.out.println("actualParam = " + actualParam.getType());
+            }
+
+            System.out.println("name.toString()");
+            System.out.println(name.toString());
+            
             throw new SymbolNotDeclaredException(this);
+        }
+
 
 
 
@@ -43,5 +55,10 @@ public class CallStatement extends Statement {
     @Override
     public Type getType() {
         return symbolTable.lookup(name);
+    }
+
+    @Override
+    public String toString() {
+        return "CallStatement. Calling " + name.toString();
     }
 }
