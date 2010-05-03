@@ -16,9 +16,10 @@ public class CallStatement extends Statement {
 
 	private FunctionName name;
 	private List<ActualParam> actualParamList;
+    private Name formalName;
 
-	public CallStatement(Name name, List<ActualParam> actualParamList) {
-		this.name = FunctionName.functionNameFactory(name, actualParamList);
+    public CallStatement(Name name, List<ActualParam> actualParamList) {
+        this.formalName = name;
 		this.actualParamList = actualParamList;
 	}
 	
@@ -34,21 +35,15 @@ public class CallStatement extends Statement {
 
     @Override
     public void checkSemantics() {
-        
-        if(symbolTable.lookup(name) == null) {
-            System.out.println("symbolTable.toString() = " + symbolTable.toString());
-            for (ActualParam actualParam : actualParamList) {
-                System.out.println("actualParam = " + actualParam.getType());
-            }
 
-            System.out.println("name.toString()");
-            System.out.println(name.toString());
-            
+        for (ActualParam actualParam : actualParamList) {
+            actualParam.checkSemantics();
+        }
+        //make function name here, so we are sure param list has checked its semantics
+        this.name = FunctionName.functionNameFactory(formalName, actualParamList);
+        if(symbolTable.lookup(name) == null) {
             throw new SymbolNotDeclaredException(this);
         }
-
-
-
 
     }
 

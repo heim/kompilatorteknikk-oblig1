@@ -22,7 +22,6 @@ public class PassByReferenceParam extends ActualParam {
 
     @Override
     public Type getType() {
-         //TODO: IMPLEMENT DA SHITTTTFUCCKERRSS!!!
         return variableExpression.getType();
     }
 }

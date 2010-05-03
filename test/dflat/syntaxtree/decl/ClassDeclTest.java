@@ -51,7 +51,7 @@ public class ClassDeclTest {
         Node n = new Node() {
             @Override
             public String printAst(int indent) {
-                return null;
+                return "";
             }
 
             @Override

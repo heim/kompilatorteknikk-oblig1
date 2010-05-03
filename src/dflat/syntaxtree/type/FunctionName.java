@@ -26,31 +26,7 @@ public class FunctionName extends Name{
     }
 
     private boolean signatureEquals(FunctionName other) {
-        if(signature == null && other.signature == null)
-            return true;
-
-        if(signature == null || other.signature == null) {
-            return false;
-        }
-
-        if(signature.size() != other.signature.size())
-            return false;
-        
-        for (int i = 0; i < signature.size(); i++) {
-            Type myType = signature.get(i);
-            Type otherType = other.signature.get(i);
-            if(myType == otherType)
-                return true;
-            if(myType == null || otherType == null)
-                return false;
-            if(myType.equals(otherType))
-                return true;
-
-
-        }
-
-
-        return true;
+        return signature.equals(other.signature);
     }
 
     public static FunctionName functionNameFactory(Name name, List<? extends Param> paramList) {
@@ -64,10 +40,13 @@ public class FunctionName extends Name{
     @Override
     public String toString() {
         String ret =  "Function name: " + name.toString() +"\n";
-        System.out.println("ret = " + ret);
         for (Type type : signature) {
-            System.out.println("type = " + type);
-            ret += type.getName() + "\n";
+            if(type == null) {
+                System.out.println("WARNING! Function name: " + name.toString() + " has null type as signature.");
+
+            }else{
+                ret += type.getName() + "\n";
+            }
         }
         return ret;
 
