@@ -1,5 +1,8 @@
 package dflat.syntaxtree.statement;
 
+import bytecode.CodeProcedure;
+import bytecode.instructions.JMPTRUE;
+import bytecode.instructions.NOP;
 import dflat.exceptions.IncompatibleTypeException;
 import dflat.syntaxtree.expression.Expression;
 import dflat.syntaxtree.type.BooleanType;
@@ -46,5 +49,17 @@ public class WhileStatement extends Statement {
     @Override
     public Type getType() {
         return new VoidType();
+    }
+
+    @Override
+    public void generateCode(CodeProcedure procedure) {
+        int top = procedure.addInstruction(new NOP());
+        for (Statement statement : statementList) {
+            statement.generateCode(procedure);
+        }
+        expression.generateCode(procedure);   //RESULT IS ON THE STACK
+        procedure.addInstruction(new JMPTRUE(top));
+
+
     }
 }

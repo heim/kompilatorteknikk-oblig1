@@ -1,5 +1,6 @@
 package dflat.syntaxtree.statement;
 
+import bytecode.CodeProcedure;
 import dflat.syntaxtree.expression.Expression;
 import dflat.syntaxtree.type.Type;
 import dflat.syntaxtree.type.VoidType;
@@ -38,5 +39,11 @@ public class IfElseStatement extends IfStatement {
     @Override
     public Type getType() {
         return new VoidType();
+    }
+
+    @Override
+    public void generateCode(CodeProcedure procedure) {
+        //TODO:implement
+        throw new RuntimeException("NOT IMPLEMENTED IFELSESTATEMENT");
     }
 }

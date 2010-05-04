@@ -1,5 +1,7 @@
 package dflat.syntaxtree.expression;
 
+import bytecode.CodeProcedure;
+import bytecode.instructions.AND;
 import dflat.syntaxtree.type.BooleanType;
 import dflat.syntaxtree.type.Type;
 
@@ -23,5 +25,12 @@ public class AndOpExpression extends LogOpExpression {
     @Override
     public Type getType() {
         return new BooleanType();
+    }
+
+    @Override
+    public void generateCode(CodeProcedure codeProcedure) {
+        expression1.generateCode(codeProcedure);
+        expression2.generateCode(codeProcedure);
+        codeProcedure.addInstruction(new AND());
     }
 }

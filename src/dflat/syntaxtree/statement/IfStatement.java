@@ -1,5 +1,6 @@
 package dflat.syntaxtree.statement;
 
+import bytecode.CodeProcedure;
 import dflat.exceptions.IncompatibleTypeException;
 import dflat.syntaxtree.expression.Expression;
 import dflat.syntaxtree.type.BooleanType;
@@ -47,5 +48,11 @@ public class IfStatement extends Statement {
     @Override
     public Type getType() {
         return new VoidType();
+    }
+
+    @Override
+    public void generateCode(CodeProcedure procedure) {
+         //TODO:implement
+        throw new RuntimeException("NOT IMPLEMENTED IFSTATEMENT");
     }
 }

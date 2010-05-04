@@ -1,5 +1,7 @@
 package dflat.syntaxtree.expression;
 
+import bytecode.CodeProcedure;
+import bytecode.instructions.OR;
 import dflat.syntaxtree.type.BooleanType;
 import dflat.syntaxtree.type.Type;
 
@@ -23,5 +25,10 @@ public class OrOpExpression extends LogOpExpression {
     @Override
     public Type getType() {
         return new BooleanType();
+    }
+
+    @Override
+    public void generateCode(CodeProcedure codeProcedure) {
+        codeProcedure.addInstruction(new OR());
     }
 }

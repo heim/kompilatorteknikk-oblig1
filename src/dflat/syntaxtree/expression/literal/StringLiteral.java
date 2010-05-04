@@ -1,5 +1,7 @@
 package dflat.syntaxtree.expression.literal;
 
+import bytecode.CodeProcedure;
+import bytecode.instructions.PUSHSTRING;
 import dflat.syntaxtree.type.StringType;
 import dflat.syntaxtree.type.Type;
 
@@ -23,5 +25,10 @@ public class StringLiteral extends Literal {
     @Override
     public Type getType() {
         return new StringType();
+    }
+
+    @Override
+    public void generateCode(CodeProcedure codeProcedure) {
+        codeProcedure.addInstruction(new PUSHSTRING(codeProcedure.addStringConstant(value)));
     }
 }

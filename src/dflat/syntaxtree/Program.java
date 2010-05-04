@@ -1,6 +1,7 @@
 package dflat.syntaxtree;
 
 import bytecode.CodeFile;
+import bytecode.CodeProcedure;
 import dflat.exceptions.MainFunctionDeclarationException;
 import dflat.exceptions.SemanticsException;
 import dflat.syntaxtree.decl.ClassDecl;
@@ -106,6 +107,10 @@ public class Program  {
             }
 
             @Override
+            public void generateCode(CodeProcedure codeProcedure) {
+            }
+
+            @Override
             public String printAst(int indent) {
                 return null;
             }
@@ -155,9 +160,84 @@ public class Program  {
 
 
     public void generateCode(CodeFile codeFile) {
+        addLibraryFunctions(codeFile);
+
         for (Decl decl : declList) {
             decl.generateCode(codeFile);
         }
+
+
+        codeFile.setMain("Main");
+    }
+
+    private void addLibraryFunctions(CodeFile codeFile) {
+        addPrintFloat(codeFile);
+        addPrintInt(codeFile);
+        addPrintLine(codeFile);
+        addPrintStr(codeFile);
+
+        addReadFloat(codeFile);
+        addReadInt(codeFile);
+        addReadChar(codeFile);
+        addReadString(codeFile);
+    }
+
+    private void addReadFloat(CodeFile codeFile) {
+        codeFile.addProcedure("read_float");
+        CodeProcedure read_float = new CodeProcedure("read_float", bytecode.type.FloatType.TYPE, codeFile);
+        codeFile.updateProcedure(read_float);
+    }
+
+
+    private void addReadInt(CodeFile codeFile) {
+        codeFile.addProcedure("read_int");
+        CodeProcedure read_int = new CodeProcedure("read_int", bytecode.type.IntType.TYPE, codeFile);
+        codeFile.updateProcedure(read_int);
+    }
+
+
+    private void addReadChar(CodeFile codeFile) {
+        codeFile.addProcedure("read_char");
+        CodeProcedure read_char = new CodeProcedure("read_float", bytecode.type.IntType.TYPE, codeFile);
+        codeFile.updateProcedure(read_char);
+    }
+
+
+    private void addReadString(CodeFile codeFile) {
+        codeFile.addProcedure("read_strin");
+        CodeProcedure read_string = new CodeProcedure("read_string", bytecode.type.StringType.TYPE, codeFile);
+        codeFile.updateProcedure(read_string);
+    }
+
+
+
+
+    private void addPrintFloat(CodeFile codeFile) {
+        codeFile.addProcedure("print_float");
+        CodeProcedure print_float = new CodeProcedure("print_float", bytecode.type.VoidType.TYPE, codeFile);
+        print_float.addParameter("f", bytecode.type.FloatType.TYPE);
+        codeFile.updateProcedure(print_float);
+    }
+
+    private void addPrintInt(CodeFile codeFile) {
+        codeFile.addProcedure("print_int");
+        CodeProcedure print_int = new CodeProcedure("print_int", bytecode.type.VoidType.TYPE, codeFile);
+        print_int.addParameter("i", bytecode.type.IntType.TYPE);
+        codeFile.updateProcedure(print_int);
+    }
+
+    private void addPrintLine(CodeFile codeFile) {
+        codeFile.addProcedure("print_line");
+        CodeProcedure print_line = new CodeProcedure("print_line", bytecode.type.VoidType.TYPE, codeFile);
+        print_line.addParameter("l", bytecode.type.StringType.TYPE);
+        codeFile.updateProcedure(print_line);
+    }
+
+     private void addPrintStr(CodeFile codeFile) {
+        codeFile.addProcedure("print_str");
+        CodeProcedure print_str = new CodeProcedure("print_str", bytecode.type.VoidType.TYPE, codeFile);
+        print_str.addParameter("s", bytecode.type.StringType.TYPE);
+        codeFile.updateProcedure(print_str);
     }
 
     public void checkSemantics() throws SemanticsException {
@@ -167,6 +247,7 @@ public class Program  {
         for(Decl d : declList) {
             d.checkSemantics();
         }
+
         if(Node.getSymbolTable().lookup(new Name("Main")) == null)
             throw new MainFunctionDeclarationException(null);
 

@@ -1,6 +1,8 @@
 package dflat.syntaxtree.decl;
 
 import bytecode.CodeFile;
+import bytecode.CodeProcedure;
+import bytecode.instructions.Instruction;
 import dflat.exceptions.FunctionMustHaveReturnStatementException;
 import dflat.exceptions.IncompatibleReturnTypeException;
 import dflat.exceptions.MainFunctionDeclarationException;
@@ -85,6 +87,36 @@ public class FuncDecl extends Decl {
 
     @Override
     public void generateCode(CodeFile codeFile) {
+        codeFile.addProcedure(getName().toString());
+
+        CodeProcedure proc = new CodeProcedure(getName().toString(), returnType.getByteCodeType(), codeFile);
+
+        for (FormalParam formalParam : formalParamList) {
+            proc.addParameter(formalParam.getName().toString(), formalParam.getType().getByteCodeType());
+        }
+
+        for (Decl decl : declList) {
+            if(decl instanceof VarDecl) {
+                proc.addLocalVariable(decl.getName().toString(), decl.getType().getByteCodeType());
+            }
+            else if(decl instanceof ClassDecl) {
+                decl.generateCode(codeFile);
+            }
+            else if(decl instanceof FuncDecl) {
+                System.out.println("decl.getName() = " + decl.getName());
+                decl.generateCode(codeFile);
+            } else {
+                throw new RuntimeException("ERROR. unknown declaration.");
+            }
+
+
+        }
+
+
+        for (Statement statement : statementList) {
+            statement.generateCode(proc);
+        }
+        codeFile.updateProcedure(proc);
     }
 
     private void ifIsMainFunctionCheckParametersAndReturnType() {

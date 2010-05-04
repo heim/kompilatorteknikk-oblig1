@@ -1,5 +1,6 @@
 package dflat.syntaxtree.expression;
 
+import bytecode.CodeProcedure;
 import dflat.exceptions.IncompatibleTypeException;
 import dflat.syntaxtree.expression.op.RelOp;
 import dflat.syntaxtree.type.BooleanType;
@@ -36,5 +37,12 @@ public class RelOpExpression extends OpExpression {
     @Override
     public Type getType() {
         return new BooleanType();
+    }
+
+    @Override
+    public void generateCode(CodeProcedure codeProcedure) {
+        expression1.generateCode(codeProcedure);
+        expression2.generateCode(codeProcedure);
+        relOp.generateCode(codeProcedure);
     }
 }

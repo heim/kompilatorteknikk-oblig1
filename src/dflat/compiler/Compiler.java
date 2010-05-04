@@ -50,7 +50,7 @@ public class Compiler {
         }
 
         //writeAST(program);
-        //generateCode(program);
+        generateCode(program);
         return 0;
 
     }
@@ -83,7 +83,8 @@ public class Compiler {
             }
 
         } catch (Exception e) {
-            System.out.println("KukERROR: " + e);
+            System.out.println("ERROR: " + e);
+            e.printStackTrace();
             // If unknown semanticError.
             System.exit(3);
         }

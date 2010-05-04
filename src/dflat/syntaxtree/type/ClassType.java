@@ -61,6 +61,6 @@ public class ClassType extends Type {
 
     @Override
     public CodeType getByteCodeType() {
-        return bytecode.type.RefType
+        throw new RuntimeException("CANNOT GET BYTECODETYPE FROM CLASSTYPE. THIS IS A COMPILER PROGRAMMIN ERROR.");
     }
 }

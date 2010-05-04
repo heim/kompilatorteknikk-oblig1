@@ -1,5 +1,7 @@
 package dflat.syntaxtree.statement;
 
+import bytecode.CodeProcedure;
+import bytecode.instructions.CALL;
 import dflat.exceptions.SymbolNotDeclaredException;
 import dflat.syntaxtree.param.ActualParam;
 import dflat.syntaxtree.param.FormalParam;
@@ -55,5 +57,15 @@ public class CallStatement extends Statement {
     @Override
     public String toString() {
         return "CallStatement. Calling " + name.toString();
+    }
+
+    @Override
+    public void generateCode(CodeProcedure procedure) {
+
+        for (ActualParam actualParam : actualParamList) {
+            actualParam.generateCode(procedure);
+        }
+        int funcNum = procedure.procedureNumber(name.getName());
+        procedure.addInstruction(new CALL(funcNum));
     }
 }

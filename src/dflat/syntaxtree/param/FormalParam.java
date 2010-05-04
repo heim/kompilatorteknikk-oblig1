@@ -36,6 +36,10 @@ public class FormalParam extends Param {
         return type;
     }
 
+    public Name getName() {
+        return name;
+    }
+
     @Override
     public boolean getIsRef() {
         return ref;

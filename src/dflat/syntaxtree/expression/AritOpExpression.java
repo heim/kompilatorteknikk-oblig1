@@ -1,5 +1,6 @@
 package dflat.syntaxtree.expression;
 
+import bytecode.CodeProcedure;
 import dflat.exceptions.IncompatibleTypeException;
 import dflat.syntaxtree.expression.op.AritOp;
 import dflat.syntaxtree.expression.op.ExponentOp;
@@ -54,5 +55,12 @@ public class AritOpExpression extends OpExpression {
 
 
         return type;
+    }
+
+    @Override
+    public void generateCode(CodeProcedure codeProcedure) {
+        expression1.generateCode(codeProcedure);
+        expression2.generateCode(codeProcedure);
+        op.generateCode(codeProcedure);
     }
 }

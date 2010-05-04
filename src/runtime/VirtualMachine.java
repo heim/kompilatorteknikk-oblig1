@@ -26,7 +26,12 @@ public class VirtualMachine {
 		System.out.print(list);
 	}
 	public static void main(String[] args) {
-		try {
+        for (int i = 0; i < args.length; i++) {
+            String arg = args[i];
+            System.out.println("arg = " + arg);
+        }
+
+        try {
 			if(args.length>1 && args[0].equals("-l")){
 				VirtualMachine vm = new VirtualMachine(args[1]);
 				vm.list();

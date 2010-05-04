@@ -1,5 +1,7 @@
 package dflat.syntaxtree.expression.literal;
 
+import bytecode.CodeProcedure;
+import bytecode.instructions.PUSHINT;
 import dflat.syntaxtree.type.IntegerType;
 import dflat.syntaxtree.type.Type;
 
@@ -23,5 +25,10 @@ public class IntLiteral extends FloatLiteral {
     @Override
     public Type getType() {
         return new IntegerType();
+    }
+
+    @Override
+    public void generateCode(CodeProcedure codeProcedure) {
+        codeProcedure.addInstruction(new PUSHINT(Integer.valueOf(value)));
     }
 }

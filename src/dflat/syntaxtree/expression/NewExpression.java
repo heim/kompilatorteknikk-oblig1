@@ -1,5 +1,7 @@
 package dflat.syntaxtree.expression;
 
+import bytecode.CodeProcedure;
+import bytecode.instructions.NEW;
 import dflat.syntaxtree.type.Type;
 
 public class NewExpression extends Expression {
@@ -20,5 +22,11 @@ public class NewExpression extends Expression {
     @Override
     public Type getType() {
         return type;
+    }
+
+    @Override
+    public void generateCode(CodeProcedure codeProcedure) {
+        int structNum = codeProcedure.structNumber(type.getName().toString());
+        codeProcedure.addInstruction(new NEW(structNum));
     }
 }

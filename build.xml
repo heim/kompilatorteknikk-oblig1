@@ -139,4 +139,29 @@
     </target>
 
 
+    <target name="compile-testfile" depends="init">
+           <java classname="dflat.compiler.Compiler" classpathref="path-run">
+               <arg value="code-examples/test.d"/>
+               <arg value="code-examples/test.ast"/>
+               <arg value="code-examples/test.bin"/>
+           </java>
+       </target>
+
+       <!-- List example RunMe -->
+       <target name="list-testfile" depends="init">
+           <java classname="runtime.VirtualMachine" classpathref="path-run">
+               <arg value="-l"/>
+               <arg value="code-examples/test.bin"/>
+           </java>
+       </target>
+
+       <!-- Run vm on example RunMe -->
+       <target name="run-testfile" depends="init">
+           <java classname="runtime.VirtualMachine" classpathref="path-run">
+               <arg value="code-examples/test.bin"/>
+           </java>
+       </target>
+
+
+
 </project>

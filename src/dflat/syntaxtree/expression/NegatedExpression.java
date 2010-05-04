@@ -1,5 +1,7 @@
 package dflat.syntaxtree.expression;
 
+import bytecode.CodeProcedure;
+import bytecode.instructions.NOT;
 import dflat.exceptions.IncompatibleTypeException;
 import dflat.syntaxtree.type.BooleanType;
 import dflat.syntaxtree.type.Type;
@@ -31,5 +33,11 @@ public class NegatedExpression extends Expression {
     @Override
     public Type getType() {
         return new BooleanType();
+    }
+
+    @Override
+    public void generateCode(CodeProcedure codeProcedure) {
+        expression.generateCode(codeProcedure);
+        codeProcedure.addInstruction(new NOT());
     }
 }

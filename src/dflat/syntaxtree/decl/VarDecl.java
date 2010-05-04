@@ -1,6 +1,8 @@
 package dflat.syntaxtree.decl;
 
 import bytecode.CodeFile;
+import bytecode.CodeStruct;
+import dflat.syntaxtree.type.ClassType;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
 
@@ -36,4 +38,5 @@ public class VarDecl extends Decl {
     @Override
     public void generateCode(CodeFile codeFile) {
     }
+    
 }

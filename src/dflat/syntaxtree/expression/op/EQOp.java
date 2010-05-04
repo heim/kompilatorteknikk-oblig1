@@ -1,5 +1,8 @@
 package dflat.syntaxtree.expression.op;
 
+import bytecode.CodeProcedure;
+import bytecode.instructions.EQ;
+
 public class EQOp extends RelOp {
 
 	@Override
@@ -11,4 +14,8 @@ public class EQOp extends RelOp {
     public void checkSemantics() {
     }
 
+    @Override
+    public void generateCode(CodeProcedure codeProcedure) {
+        codeProcedure.addInstruction(new EQ());
+    }
 }

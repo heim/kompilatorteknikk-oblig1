@@ -1,5 +1,7 @@
 package dflat.syntaxtree.statement;
 
+import bytecode.CodeProcedure;
+import bytecode.instructions.RETURN;
 import dflat.syntaxtree.expression.Expression;
 import dflat.syntaxtree.type.Type;
 import dflat.syntaxtree.type.VoidType;
@@ -14,6 +16,10 @@ public class ReturnStatement extends Statement {
                 @Override
                 public Type getType() {
                     return new VoidType();
+                }
+
+                @Override
+                public void generateCode(CodeProcedure codeProcedure) {
                 }
 
                 @Override
@@ -45,5 +51,11 @@ public class ReturnStatement extends Statement {
     @Override
     public Type getType() {
        return expression.getType();
+    }
+
+    @Override
+    public void generateCode(CodeProcedure procedure) {
+        expression.generateCode(procedure);
+        procedure.addInstruction(new RETURN());
     }
 }

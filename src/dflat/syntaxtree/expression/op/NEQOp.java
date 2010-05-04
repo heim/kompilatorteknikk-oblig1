@@ -1,5 +1,8 @@
 package dflat.syntaxtree.expression.op;
 
+import bytecode.CodeProcedure;
+import bytecode.instructions.NEQ;
+
 public class NEQOp extends RelOp {
 
 	public String printAst(int indent) {
@@ -10,4 +13,8 @@ public class NEQOp extends RelOp {
     public void checkSemantics() {
     }
 
+    @Override
+    public void generateCode(CodeProcedure codeProcedure) {
+        codeProcedure.addInstruction(new NEQ());
+    }
 }

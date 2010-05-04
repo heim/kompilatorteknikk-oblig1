@@ -1,5 +1,8 @@
 package dflat.syntaxtree.expression.literal;
 
+import bytecode.CodeProcedure;
+import bytecode.instructions.PUSHNULL;
+import bytecode.type.CodeType;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
 import dflat.syntaxtree.type.VoidType;
@@ -24,6 +27,11 @@ public class NullLiteral extends Literal {
 
     }
 
+    @Override
+    public void generateCode(CodeProcedure codeProcedure) {
+        codeProcedure.addInstruction(new PUSHNULL());
+    }
+
 
     class NullType extends Type {
 
@@ -35,6 +43,11 @@ public class NullLiteral extends Literal {
         @Override
         public boolean canBeCastTo(Type otherType) {
             return !(otherType instanceof VoidType);
+        }
+
+        @Override
+        public CodeType getByteCodeType() {
+            return null;
         }
 
         @Override

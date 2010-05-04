@@ -1,5 +1,6 @@
 package dflat.syntaxtree.param;
 
+import bytecode.CodeProcedure;
 import dflat.syntaxtree.expression.Expression;
 import dflat.syntaxtree.type.Type;
 
@@ -27,5 +28,10 @@ public class PassByValueParam extends ActualParam {
     @Override
     public boolean getIsRef() {
         return false;
+    }
+
+    @Override
+    public void generateCode(CodeProcedure procedure) {
+        expression.generateCode(procedure);
     }
 }
