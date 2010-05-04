@@ -1,5 +1,6 @@
 package dflat.syntaxtree.type;
 
+import bytecode.type.CodeType;
 import dflat.exceptions.TypeNotDeclaredException;
 import dflat.syntaxtree.decl.VarDecl;
 
@@ -56,5 +57,10 @@ public class ClassType extends Type {
     @Override
     public boolean canBeCastTo(Type otherType) {
         return otherType instanceof ClassType && (otherType.getName().equals(getName()));
+    }
+
+    @Override
+    public CodeType getByteCodeType() {
+        return bytecode.type.RefType
     }
 }

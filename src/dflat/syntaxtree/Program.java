@@ -114,9 +114,6 @@ public class Program  {
             public void checkSemantics() {
             }
 
-            @Override
-            public void generateCode(CodeFile codeFile) {
-            }
         });
         smList.add(rs);
 

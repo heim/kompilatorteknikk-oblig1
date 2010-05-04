@@ -1,6 +1,7 @@
 package dflat.syntaxtree.decl;
 
 import bytecode.CodeFile;
+import bytecode.CodeStruct;
 import dflat.syntaxtree.type.ClassType;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
@@ -50,6 +51,23 @@ public class ClassDecl extends Decl {
 
     @Override
     public void generateCode(CodeFile codeFile) {
+        codeFile.addStruct(name.toString());
+        CodeStruct struct = new CodeStruct(name.toString());
+
+        for (VarDecl decl : varDecl) {
+            if(!isClassType(decl)) {
+                struct.addVariable(decl.getName().toString(), decl.getType().getByteCodeType());
+            } else {
+                throw new RuntimeException("SHIIIIIATT");
+            }
+
+        }
+
+        codeFile.updateStruct(null);
+    }
+
+    private boolean isClassType(VarDecl decl) {
+        return decl.getType() instanceof ClassType;
     }
 
     private void buildSymbolTable() {

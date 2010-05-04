@@ -1,5 +1,7 @@
 package dflat.syntaxtree.type;
 
+import bytecode.type.CodeType;
+
 public class IntegerType extends Type {
 
 	@Override
@@ -29,6 +31,11 @@ public class IntegerType extends Type {
     public boolean canBeCastTo(Type otherType) {
          //return otherType instanceof IntegerType;
         return  otherType instanceof IntegerType || otherType instanceof FloatType;
+    }
+
+    @Override
+    public CodeType getByteCodeType() {
+        return bytecode.type.IntType.TYPE;
     }
 
 }

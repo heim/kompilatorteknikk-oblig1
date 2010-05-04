@@ -3,12 +3,12 @@ package dflat.syntaxtree.expression.literal;
 import dflat.syntaxtree.type.IntegerType;
 import dflat.syntaxtree.type.Type;
 
-public class IntLiteral extends Literal {
+public class IntLiteral extends FloatLiteral {
 	
-	private String value;
 
 	public IntLiteral(String value) {
-		this.value = value;
+
+		 super(value);
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import dflat.syntaxtree.type.FloatType;
 import dflat.syntaxtree.type.Type;
 
 public class FloatLiteral extends Literal {
-	private String value;
+	protected String value;
 
 	public FloatLiteral(String value) {
 		this.value = value; 

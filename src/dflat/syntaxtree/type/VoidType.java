@@ -1,5 +1,7 @@
 package dflat.syntaxtree.type;
 
+import bytecode.type.CodeType;
+
 /**
  * Created by IntelliJ IDEA.
  * User: andreas
@@ -31,5 +33,10 @@ public class VoidType extends Type {
     @Override
     public boolean canBeCastTo(Type otherType) {
         return otherType instanceof VoidType;
+    }
+
+    @Override
+    public CodeType getByteCodeType() {
+        return bytecode.type.VoidType.TYPE;
     }
 }
