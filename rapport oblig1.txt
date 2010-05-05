@@ -2,6 +2,8 @@ Rapport oblig 2.
 
 Design decisions.
 
+Name-klassen var relativt dumt.
+
 La til Type.canBeCastTo(otherType), selv om denne bare gjelder mellom int og float. Kan være nyttig ifb klasser, arv etc.
 
 
@@ -15,3 +17,23 @@ isRef i Param.
 Paramklassen tar for seg equals for alle subklasser. konsekvens av at metodesignatur ligger i name.
 må støtte sammenlikning av formalparam og actualparam.
 sjekking mot riktig signatur, ref eller ikke osv gjøres nå i signaturliste sin equals. altså java util.
+
+
+ass-statement
+@Override
+   public void generateCode(CodeProcedure proc) {
+       expression.generateCode(proc); //last value is on the stack
+
+       int localVarNumber = proc.variableNumber(var.getName().toString());
+       //Må finne ut om var er global eller lokal
+       if(localVarNumber == -1) {
+           int globalVarNumber = proc.globalVariableNumber(var.getName().toString());
+           if(globalVarNumber == -1) {
+               throw new RuntimeException("no such variable. Name:" + var.getName().toString());
+           }
+           proc.addInstruction(new STOREGLOBAL(globalVarNumber));
+       } else {
+           proc.addInstruction(new STORELOCAL(localVarNumber));
+       }
+
+   }

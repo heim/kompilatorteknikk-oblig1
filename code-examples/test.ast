@@ -4,107 +4,20 @@
 		(VAR_DECL (TYPE float)(NAME Imag))
 	)
 
-	(FUNC_DECL (TYPE void) (NAME Swap)
-		(PARAM_DECL ref (TYPE int)(NAME a))
-		(PARAM_DECL ref (TYPE int)(NAME b))
-		(VAR_DECL (TYPE int)(NAME tmp))
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(VAR_DECL (TYPE (NAME Complex))(NAME dummy))
 		(ASSIGN_STMT
-			(NAME tmp)
-			(NAME a)
-)
-
-		(ASSIGN_STMT
-			(NAME a)
-			(NAME b)
-)
-
-		(ASSIGN_STMT
-			(NAME b)
-			(NAME tmp)
-)
-
-	)
-
-	(FUNC_DECL (TYPE (NAME Complex)) (NAME Add)
-		(PARAM_DECL (TYPE (NAME Complex))(NAME a))
-		(PARAM_DECL (TYPE (NAME Complex))(NAME b))
-		(VAR_DECL (TYPE (NAME Complex))(NAME retval))
-		(ASSIGN_STMT
-			(NAME retval)
+			(NAME dummy)
 			(NEW (TYPE (NAME Complex)))
 )
 
 		(ASSIGN_STMT
-			( . (NAME retval) (NAME Real))
-			(ARIT_OP +
-				( . (NAME a) (NAME Real))
-				( . (NAME b) (NAME Real))
-			)
+			( . (NAME dummy) (NAME Real))
+			(FLOAT_LITERAL 1.6)
 )
 
-		(ASSIGN_STMT
-			( . (NAME retval) (NAME Imag))
-			(ARIT_OP +
-				( . (NAME a) (NAME Imag))
-				( . (NAME b) (NAME Imag))
-			)
-)
-
-		(RETURN_STMT 
-			(NAME retval)
-		)
-
-	)
-
-	(FUNC_DECL (TYPE int) (NAME Max)
-		(PARAM_DECL (TYPE int)(NAME a))
-		(PARAM_DECL (TYPE int)(NAME b))
-		(IF_STMT 
-			(REL_OP >
-				(NAME a)
-				(NAME b)
-			)
-
-		(
-			(RETURN_STMT 
-				(NAME a)
-			)
-
-		)
-
-		(RETURN_STMT 
-			(NAME b)
-		)
-
-	)
-
-	(FUNC_DECL (TYPE void) (NAME Main)
-		(FUNC_DECL (TYPE float) (NAME Square)
-			(PARAM_DECL (TYPE float)(NAME val))
-			(RETURN_STMT 
-				(ARIT_OP **
-					(NAME val)
-					(FLOAT_LITERAL 2.0)
-				)
-			)
-
-		)
-		(VAR_DECL (TYPE float)(NAME num))
-		(ASSIGN_STMT
-			(NAME num)
-			(FLOAT_LITERAL 6.480740)
-)
-
-		(CALL_STMT (NAME print_float)
-			(ACTUAL_PARAM (NAME num))
-
-		(CALL_STMT (NAME print_str)
-			(ACTUAL_PARAM (STRING_LITERAL "  squared is  "))
-
-		(CALL_STMT (NAME print_float)
-			(ACTUAL_PARAM (CALL_STMT (NAME Square)
-	(ACTUAL_PARAM (NAME num))
-)
+		(CALL_STMT (NAME print_int)
+			(ACTUAL_PARAM (INT_LITERAL 10))
 
 		(RETURN_STMT)
 

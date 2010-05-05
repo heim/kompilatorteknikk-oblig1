@@ -1,6 +1,9 @@
 package dflat.syntaxtree.statement;
 
 import bytecode.CodeProcedure;
+import bytecode.instructions.JMP;
+import bytecode.instructions.JMPFALSE;
+import bytecode.instructions.NOP;
 import dflat.syntaxtree.expression.Expression;
 import dflat.syntaxtree.type.Type;
 import dflat.syntaxtree.type.VoidType;
@@ -43,10 +46,22 @@ public class IfElseStatement extends IfStatement {
 
     @Override
     public void generateCode(CodeProcedure procedure) {
-       super.generateCode(procedure);
+        expression.generateCode(procedure);
+        int ifJump = procedure.addInstruction(new JMPFALSE(0));
+        for (Statement statement : ifStatements) {
+            statement.generateCode(procedure);
+        }
+        int ifFinished = procedure.addInstruction(new JMP(0));
+        int elseStarts = procedure.addInstruction(new NOP());
+        procedure.replaceInstruction(ifJump, new JMPFALSE(elseStarts));
 
         for (Statement elseStatement : elseStatements) {
             elseStatement.generateCode(procedure);
         }
+        int elseFinished = procedure.addInstruction(new NOP());
+        procedure.replaceInstruction(ifFinished, new JMP(elseFinished));
+
+
+
     }
 }

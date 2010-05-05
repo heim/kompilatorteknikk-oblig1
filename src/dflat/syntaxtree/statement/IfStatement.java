@@ -13,17 +13,17 @@ import java.util.List;
 
 public class IfStatement extends Statement {
 
-	private List<Statement> statements;
+	protected List<Statement> ifStatements;
 	protected Expression expression;
 
-	public IfStatement(Expression exp, List<Statement> statements) {
+	public IfStatement(Expression exp, List<Statement> ifStatements) {
 		this.expression = exp;
-		this.statements = statements;
+		this.ifStatements = ifStatements;
 	}
 	
 	public String printAst(int indent) {
 		String retVal = indentTabs(indent) + "(IF_STMT \n" + expression.printAst(indent+1) + "\n" + indentTabs(indent) + "(\n";
-		for(Statement s : statements) {
+		for(Statement s : ifStatements) {
 			retVal += s.printAst(indent + 1) + "\n";
 		}
 		retVal += indentTabs(indent) + ")\n";
@@ -36,7 +36,7 @@ public class IfStatement extends Statement {
         if(!expressionIsBoolean())
             throw new IncompatibleTypeException(expression);
 
-        for (Statement statement : statements) {
+        for (Statement statement : ifStatements) {
             statement.checkSemantics();
         }
 
@@ -56,7 +56,7 @@ public class IfStatement extends Statement {
     public void generateCode(CodeProcedure procedure) {
         expression.generateCode(procedure);
         int ifJump = procedure.addInstruction(new JMPFALSE(0));
-        for (Statement statement : statements) {
+        for (Statement statement : ifStatements) {
             statement.generateCode(procedure);
         }
 

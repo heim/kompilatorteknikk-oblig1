@@ -2,7 +2,9 @@ class Complex {
     var float Real;
     var float Imag;
 }
+
 var Complex dummy;
+
 func ret Complex Add( Complex a, Complex b ) {
     var Complex retval;
     retval := new Complex();
@@ -27,6 +29,7 @@ func printCmplx(Complex pr) {
     print_str("Imag ");
     print_float((pr).Imag);
     print_line("");
+    return;
 }
 func test(){
     var Complex c1;
@@ -48,22 +51,28 @@ func test(){
     x:=3;
     y:=7;
     max := Max(y, x);
+    print_line("Max in test");
+    print_int(max);
+    print_line("");
+    return;
 }
 func printStr(string str) {
 //    str := "Navn " + str;
     print_str(str);
+    return;
 }
 func inOutTest(){
     var int v1;
     var int v2;
     
-    print_line("skriv v1");
-    v1 := read_int();
-    print_line("skriv v2");
-    v2 := read_int();
+    print_line("skriv v1 (12)");
+    v1 := 12;
+    print_line("skriv v2 (21)");
+    v2 := 21;
     print_str("Storst ");
     print_int(Max(v1, v2));
     print_line("");
+    return;
 }
 func Main() {
     var float num;
@@ -91,4 +100,5 @@ func Main() {
     printCmplx(dummy);
 
     print_line("DONE");
+    return;
 }

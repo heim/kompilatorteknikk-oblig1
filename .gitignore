@@ -4,3 +4,7 @@
 out/**/*
 build/**/*
 src-gen/**/*
+.DS_Store
+code-examples/*.bin
+code-examples/*.ast
+

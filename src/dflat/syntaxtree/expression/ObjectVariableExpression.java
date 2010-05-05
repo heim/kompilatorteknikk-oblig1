@@ -2,6 +2,7 @@ package dflat.syntaxtree.expression;
 
 import bytecode.CodeProcedure;
 import bytecode.instructions.GETFIELD;
+import bytecode.instructions.LOADLOCAL;
 import bytecode.instructions.PUTFIELD;
 import dflat.exceptions.IncompatibleReturnTypeException;
 import dflat.exceptions.SymbolNotDeclaredException;
@@ -55,6 +56,7 @@ public class ObjectVariableExpression extends VariableExpression {
 
     @Override
     public void generateCode(CodeProcedure codeProcedure) {
+        expression.generateCode(codeProcedure);
         int structNumber = codeProcedure.structNumber(expression.getType().getName().toString());
         int fieldNumber = codeProcedure.fieldNumber(expression.getType().getName().toString(), name.toString());
         codeProcedure.addInstruction(new GETFIELD(fieldNumber, structNumber));
@@ -62,6 +64,7 @@ public class ObjectVariableExpression extends VariableExpression {
 
     @Override
     public void generateCodeForStore(CodeProcedure codeProcedure) {
+        expression.generateCode(codeProcedure);
         int structNumber = codeProcedure.structNumber(expression.getType().getName().toString());
         int fieldNumber = codeProcedure.fieldNumber(expression.getType().getName().toString(), name.toString());
         codeProcedure.addInstruction(new PUTFIELD(fieldNumber, structNumber));
