@@ -2,23 +2,24 @@ package dflat.syntaxtree.decl;
 
 import bytecode.CodeFile;
 import bytecode.CodeStruct;
+import bytecode.type.RefType;
 import dflat.syntaxtree.type.ClassType;
 import dflat.syntaxtree.type.Name;
 import dflat.syntaxtree.type.Type;
 
 public class VarDecl extends Decl {
 
-	private Type type;
-	private Name name;
+    private Type type;
+    private Name name;
 
-	public VarDecl(Type type, Name name) {
-		this.type = type;
-		this.name = name;
-	}
+    public VarDecl(Type type, Name name) {
+        this.type = type;
+        this.name = name;
+    }
 
-	public String printAst(int indent) {
-		return indentTabs(indent) + "(VAR_DECL " + type.printAst(0) +  name.printAst(0) + ")";
-	}
+    public String printAst(int indent) {
+        return indentTabs(indent) + "(VAR_DECL " + type.printAst(0) +  name.printAst(0) + ")";
+    }
 
     @Override
     public Type getType() {
@@ -27,7 +28,7 @@ public class VarDecl extends Decl {
 
     @Override
     public Name getName() {
-        return name;  
+        return name;
     }
 
     @Override
@@ -37,6 +38,15 @@ public class VarDecl extends Decl {
 
     @Override
     public void generateCode(CodeFile codeFile) {
+        if(!(type instanceof ClassType)) {
+            codeFile.addVariable(name.toString());
+            codeFile.updateVariable(name.toString(), type.getByteCodeType());
+        }
+        else {
+            RefType refType = new RefType(codeFile.structNumber(type.getName().toString()));
+            codeFile.addVariable(name.toString());
+            codeFile.updateVariable(name.toString(), refType);
+        }
     }
-    
+
 }

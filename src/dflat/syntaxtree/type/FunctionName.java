@@ -35,6 +35,10 @@ public class FunctionName extends Name{
 
     @Override
     public String toString() {
+        return name.toString();
+    }
+
+    public String toErrorString() {
         String ret =  "Function name: " + name.toString() +"(";
         for (Param param : signature) {
             if(param == null) {

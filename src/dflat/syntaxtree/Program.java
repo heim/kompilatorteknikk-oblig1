@@ -166,7 +166,6 @@ public class Program  {
             decl.generateCode(codeFile);
         }
 
-
         codeFile.setMain("Main");
     }
 
@@ -198,13 +197,13 @@ public class Program  {
 
     private void addReadChar(CodeFile codeFile) {
         codeFile.addProcedure("read_char");
-        CodeProcedure read_char = new CodeProcedure("read_float", bytecode.type.IntType.TYPE, codeFile);
+        CodeProcedure read_char = new CodeProcedure("read_char", bytecode.type.IntType.TYPE, codeFile);
         codeFile.updateProcedure(read_char);
     }
 
 
     private void addReadString(CodeFile codeFile) {
-        codeFile.addProcedure("read_strin");
+        codeFile.addProcedure("read_string");
         CodeProcedure read_string = new CodeProcedure("read_string", bytecode.type.StringType.TYPE, codeFile);
         codeFile.updateProcedure(read_string);
     }

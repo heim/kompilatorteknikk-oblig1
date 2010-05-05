@@ -1,6 +1,8 @@
 package dflat.syntaxtree.statement;
 
 import bytecode.CodeProcedure;
+import bytecode.instructions.JMPFALSE;
+import bytecode.instructions.NOP;
 import dflat.exceptions.IncompatibleTypeException;
 import dflat.syntaxtree.expression.Expression;
 import dflat.syntaxtree.type.BooleanType;
@@ -52,7 +54,16 @@ public class IfStatement extends Statement {
 
     @Override
     public void generateCode(CodeProcedure procedure) {
-         //TODO:implement
-        throw new RuntimeException("NOT IMPLEMENTED IFSTATEMENT");
+        expression.generateCode(procedure);
+        int ifJump = procedure.addInstruction(new JMPFALSE(0));
+        for (Statement statement : statements) {
+            statement.generateCode(procedure);
+        }
+
+        int jumpTo = procedure.addInstruction(new NOP());
+        procedure.replaceInstruction(ifJump, new JMPFALSE(jumpTo));
+        
     }
+
+
 }

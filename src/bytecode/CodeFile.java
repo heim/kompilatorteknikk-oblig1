@@ -101,8 +101,8 @@ public class CodeFile {
 	}
 
 	public void setMain(String name) {
-		for(int i=0; i<this.procedures.size();i++){
-			if(this.procedures.get(i).getName().equals(name)){
+        for(int i=0; i<this.procedures.size();i++){
+            if(this.procedures.get(i).getName().equals(name)){
 				this.main = i;
 			}
 		}
@@ -209,4 +209,12 @@ public class CodeFile {
 		}
 	}
 
+    @Override
+    public String toString() {
+        String ret = "";
+        for (String procedureName : procedureNames) {
+            ret += "proc " + procedureName + "\n";
+        }
+        return ret;
+    }
 }

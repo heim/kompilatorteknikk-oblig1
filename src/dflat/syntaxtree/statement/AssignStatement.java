@@ -1,18 +1,11 @@
 package dflat.syntaxtree.statement;
 
-import bytecode.CodeFile;
 import bytecode.CodeProcedure;
-import bytecode.instructions.Instruction;
-import bytecode.instructions.LOADLOCAL;
-import bytecode.instructions.STOREGLOBAL;
-import bytecode.instructions.STORELOCAL;
 import dflat.exceptions.IncompatibleReturnTypeException;
 import dflat.syntaxtree.expression.Expression;
 import dflat.syntaxtree.expression.VariableExpression;
 import dflat.syntaxtree.type.Type;
 import dflat.syntaxtree.type.VoidType;
-
-import java.util.List;
 
 public class AssignStatement extends Statement {
 

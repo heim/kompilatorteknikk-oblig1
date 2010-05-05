@@ -3,6 +3,8 @@ package dflat.syntaxtree.decl;
 import bytecode.CodeFile;
 import bytecode.CodeProcedure;
 import bytecode.instructions.Instruction;
+import bytecode.type.CodeType;
+import bytecode.type.RefType;
 import dflat.exceptions.FunctionMustHaveReturnStatementException;
 import dflat.exceptions.IncompatibleReturnTypeException;
 import dflat.exceptions.MainFunctionDeclarationException;
@@ -10,52 +12,49 @@ import dflat.exceptions.SemanticsException;
 import dflat.syntaxtree.param.FormalParam;
 import dflat.syntaxtree.statement.ReturnStatement;
 import dflat.syntaxtree.statement.Statement;
-import dflat.syntaxtree.type.FunctionName;
-import dflat.syntaxtree.type.Name;
-import dflat.syntaxtree.type.Type;
-import dflat.syntaxtree.type.VoidType;
+import dflat.syntaxtree.type.*;
 
 import java.util.List;
 
 public class FuncDecl extends Decl {
 
-	private FunctionName name;
-	private Type returnType;
-	private List<Decl> declList;
-	private List<FormalParam> formalParamList;
-	private List<Statement> statementList;
+    private FunctionName name;
+    private Type returnType;
+    private List<Decl> declList;
+    private List<FormalParam> formalParamList;
+    private List<Statement> statementList;
 
-	public FuncDecl(Name name, List<FormalParam> formalParamList, Type returnType, List<Decl> declList, List<Statement> statementList) {
-		this.name = FunctionName.functionNameFactory(name, formalParamList);
-		this.returnType = returnType != null ? returnType : new VoidType();
-		this.declList = declList;
-		this.formalParamList = formalParamList;
-		this.statementList = statementList;
-	}
+    public FuncDecl(Name name, List<FormalParam> formalParamList, Type returnType, List<Decl> declList, List<Statement> statementList) {
+        this.name = FunctionName.functionNameFactory(name, formalParamList);
+        this.returnType = returnType != null ? returnType : new VoidType();
+        this.declList = declList;
+        this.formalParamList = formalParamList;
+        this.statementList = statementList;
+    }
 
 
     public String printAst(int indent) {
-		String returnTypeDesc = "(TYPE void)";
-		
-		if(returnType != null) {
-			returnTypeDesc = returnType.printAst(0);
-		}
-		
-		String retVal = indentTabs(indent) + "(FUNC_DECL " + returnTypeDesc +" (NAME " + name + ")\n";
-		for(FormalParam p : formalParamList) {
-			retVal += p.printAst(indent + 1) + "\n";
-		}
-		
-		for(Decl d : declList) {
-			retVal += d.printAst(indent + 1) + "\n";
-		}
-		
-		for(Statement s : statementList) {
-			retVal += s.printAst(indent + 1) + "\n";
-		}
-		
-		return retVal + indentTabs(indent) +  ")";
-	}
+        String returnTypeDesc = "(TYPE void)";
+
+        if(returnType != null) {
+            returnTypeDesc = returnType.printAst(0);
+        }
+
+        String retVal = indentTabs(indent) + "(FUNC_DECL " + returnTypeDesc +" (NAME " + name + ")\n";
+        for(FormalParam p : formalParamList) {
+            retVal += p.printAst(indent + 1) + "\n";
+        }
+
+        for(Decl d : declList) {
+            retVal += d.printAst(indent + 1) + "\n";
+        }
+
+        for(Statement s : statementList) {
+            retVal += s.printAst(indent + 1) + "\n";
+        }
+
+        return retVal + indentTabs(indent) +  ")";
+    }
 
     @Override
     public Type getType() {
@@ -69,7 +68,7 @@ public class FuncDecl extends Decl {
 
     @Override
     public void checkSemantics() {
-        
+
         ifIsMainFunctionCheckParametersAndReturnType();
 
 
@@ -89,15 +88,43 @@ public class FuncDecl extends Decl {
     public void generateCode(CodeFile codeFile) {
         codeFile.addProcedure(getName().toString());
 
-        CodeProcedure proc = new CodeProcedure(getName().toString(), returnType.getByteCodeType(), codeFile);
+        CodeType byteCodeReturnType;
+
+
+        if(returnType instanceof ClassType) {
+            byteCodeReturnType = new RefType(codeFile.structNumber(returnType.getName().toString()));
+
+        }   else {
+            byteCodeReturnType = returnType.getByteCodeType();
+        }
+
+
+        CodeProcedure proc = new CodeProcedure(getName().toString(), byteCodeReturnType, codeFile);
+
+
+
 
         for (FormalParam formalParam : formalParamList) {
-            proc.addParameter(formalParam.getName().toString(), formalParam.getType().getByteCodeType());
+            CodeType paramByteCodeType;
+
+            if(formalParam.getType() instanceof ClassType) {
+                paramByteCodeType = new RefType(codeFile.structNumber(formalParam.getType().getName().toString()));
+
+            }   else {
+                paramByteCodeType = formalParam.getType().getByteCodeType();
+            }
+
+
+            proc.addParameter(formalParam.getName().toString(), paramByteCodeType);
         }
 
         for (Decl decl : declList) {
             if(decl instanceof VarDecl) {
-                proc.addLocalVariable(decl.getName().toString(), decl.getType().getByteCodeType());
+                if(decl.getType() instanceof ClassType) {
+                    proc.addLocalVariable(decl.getName().toString(), new RefType(codeFile.structNumber(decl.getType().getName().toString())));
+                }else {
+                    proc.addLocalVariable(decl.getName().toString(), decl.getType().getByteCodeType());
+                }
             }
             else if(decl instanceof ClassDecl) {
                 decl.generateCode(codeFile);

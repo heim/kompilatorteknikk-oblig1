@@ -43,7 +43,10 @@ public class IfElseStatement extends IfStatement {
 
     @Override
     public void generateCode(CodeProcedure procedure) {
-        //TODO:implement
-        throw new RuntimeException("NOT IMPLEMENTED IFELSESTATEMENT");
+       super.generateCode(procedure);
+
+        for (Statement elseStatement : elseStatements) {
+            elseStatement.generateCode(procedure);
+        }
     }
 }
