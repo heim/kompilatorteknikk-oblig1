@@ -1,5 +1,6 @@
 package dflat.syntaxtree.expression;
 
+import bytecode.CodeProcedure;
 import dflat.compiler.SymbolTable;
 import dflat.exceptions.IncompatibleReturnTypeException;
 import dflat.exceptions.SymbolNotDeclaredException;
@@ -72,6 +73,10 @@ public class ObjectVariableExpressionTest {
             @Override
             public Type getType() {
                 return type;
+            }
+
+            @Override
+            public void generateCode(CodeProcedure codeProcedure) {
             }
 
             @Override

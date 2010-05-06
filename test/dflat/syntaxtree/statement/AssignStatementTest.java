@@ -1,5 +1,6 @@
 package dflat.syntaxtree.statement;
 
+import bytecode.CodeProcedure;
 import dflat.compiler.SymbolTable;
 import dflat.exceptions.IncompatibleReturnTypeException;
 import dflat.syntaxtree.Node;
@@ -50,6 +51,10 @@ public class AssignStatementTest {
             @Override
             public Type getType() {
                 return type;
+            }
+
+            @Override
+            public void generateCode(CodeProcedure codeProcedure) {
             }
 
             @Override

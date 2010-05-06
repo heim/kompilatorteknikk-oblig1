@@ -9,6 +9,6 @@ public class IncompatibleTypeException extends SemanticsException {
 
     @Override
     public String getMessage() {
-        return "Incompatible Type";
+        return "Incompatible Type"+ offendingNode.toString();
     }
 }

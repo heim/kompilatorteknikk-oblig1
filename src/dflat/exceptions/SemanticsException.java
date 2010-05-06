@@ -9,4 +9,9 @@ public class SemanticsException extends RuntimeException {
     public SemanticsException(Node offendingNode) {
         this.offendingNode = offendingNode;
     }
+
+    @Override
+    public String toString() {
+        return "Uspesifisert semantikk-feil."+ offendingNode.toString();
+    }
 }

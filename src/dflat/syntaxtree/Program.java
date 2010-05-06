@@ -29,18 +29,6 @@ public class Program  {
 
     private void addLibraryFunctions() {
 
-      /*
-        func read int() Leser en int fra standard inn.
-        func read float() Leser en float fra standard inn.
-        func read char() Leser ett tegn fra standard inn og returnerer ASCII- verdien som en int. Returnerer -1 ved EOF.
-        func read string() Leser en string fra standard inn opp til første whites- pace.
-        func read line() Leser en tekstlinje fra standard inn.
-        func print int( int i ) Skriver en int til standard ut.
-        func print float( float f ) Skriver en float til standard ut.
-        func print str( string s ) Skriver en streng til standard ut.
-        func print line( string s ) Skriver en streng til standard ut fulgt av et linjeskift.
-    */
-
         addReadIntToDeclList();
         addReadFloatToDeclList();
         addReadCharToDeclList();
@@ -50,8 +38,6 @@ public class Program  {
         addPrintFloatToDeclList();
         addPrintStrToDeclList();
         addPrintLineToDeclList();
-
-
 
     }
 
@@ -241,14 +227,10 @@ public class Program  {
 
     public void checkSemantics() throws SemanticsException {
         addLibraryFunctions();
-
-
         for(Decl d : declList) {
             d.checkSemantics();
         }
-
         if(Node.getSymbolTable().lookup(new Name("Main")) == null)
             throw new MainFunctionDeclarationException(null);
-
     }
 }

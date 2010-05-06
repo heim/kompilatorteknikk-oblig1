@@ -9,6 +9,6 @@ public class MainFunctionDeclarationException extends SemanticsException {
 
     @Override
     public String getMessage() {
-        return "Main method declared with parameters and/or return type, or not declared at all.";
+        return "Main method declared with parameters and/or return type, or not declared at all."+ offendingNode.toString();
     }
 }

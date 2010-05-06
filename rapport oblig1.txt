@@ -37,3 +37,27 @@ ass-statement
        }
 
    }
+/////
+library functions blir lagt inn i program. alt blir lagt inn hver gang, ingen sjekk etter hvor mange som blir brukt.
+
+
+///getByteCodeType i tYpe klassen returnerer riktig type for bc-compilering. Klasser må slå opp sin egen type via codefile.
+
+///////
+Equals funksjonen i name.
+
+//op generer sin egen kode.
+
+
+////Symboltabell
+StackBasert. beholder popper referansene når den gpr ut av scope.
+
+
+private void insertBuiltInTypes() {
+    insert(new Name("string"), new StringType());
+    insert(new Name("int"), new IntegerType());
+    insert(new Name("bool"), new BooleanType());
+    insert(new Name("float"), new FloatType());
+    insert(new Name("void"), new VoidType());
+}
+///////

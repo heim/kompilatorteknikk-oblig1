@@ -1,5 +1,6 @@
 package dflat.syntaxtree.statement;
 
+import bytecode.CodeProcedure;
 import dflat.exceptions.SymbolNotDeclaredException;
 import dflat.syntaxtree.Node;
 import dflat.syntaxtree.param.ActualParam;
@@ -62,6 +63,10 @@ public class CallStatementTest  {
             @Override
             public boolean getIsRef() {
                 return false;
+            }
+
+            @Override
+            public void generateCode(CodeProcedure procedure) {
             }
         };
     }

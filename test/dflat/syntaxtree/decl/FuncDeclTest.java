@@ -1,5 +1,6 @@
 package dflat.syntaxtree.decl;
 
+import bytecode.CodeProcedure;
 import dflat.compiler.SymbolTable;
 import dflat.exceptions.FunctionMustHaveReturnStatementException;
 import dflat.exceptions.IncompatibleReturnTypeException;
@@ -85,13 +86,13 @@ public class FuncDeclTest {
 
     private List<FormalParam> makeFormalParamList(Type param1Type, Type param2Type) {
         List<FormalParam> retList = new ArrayList<FormalParam>();
-        Name p1Name = new Name("param1");
-        Name p2Name = new Name("param2");
+        Name p1Name = new Name("foo");
+        Name p2Name = new Name("foo2");
         Type p1Type = param1Type;
         Type p2Type = param2Type;
 
-        FormalParam p1 = new FormalParam(true, p1Type, p1Name);
-        FormalParam p2 = new FormalParam(true, p2Type, p2Name);
+        FormalParam p1 = new FormalParam(false, p1Type, p1Name);
+        FormalParam p2 = new FormalParam(false, p2Type, p2Name);
 
         retList.add(p1);
         retList.add(p2);
@@ -150,6 +151,10 @@ public class FuncDeclTest {
             }
 
             @Override
+            public void generateCode(CodeProcedure codeProcedure) {
+            }
+
+            @Override
             public String printAst(int indent) {
                 return "";
             }
@@ -195,12 +200,13 @@ public class FuncDeclTest {
             public Type getType() {
                 return type;
             }
-
+            @Override
+            public void generateCode(CodeProcedure codeProcedure) {
+            }
             @Override
             public String printAst(int indent) {
                 return "";
             }
-
             @Override
             public void checkSemantics() {
             }

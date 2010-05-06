@@ -58,29 +58,23 @@ public class FuncDecl extends Decl {
 
     @Override
     public Type getType() {
-        return returnType;  //To change body of implemented methods use File | Settings | File Templates.
+        return returnType;
     }
 
     @Override
     public Name getName() {
-        return name;  //To change body of implemented methods use File | Settings | File Templates.
+        return name;  
     }
 
     @Override
     public void checkSemantics() {
-
         ifIsMainFunctionCheckParametersAndReturnType();
-
-
         checkReturnTypeSemantics();
         symbolTable.insert(getName(), getType());
         symbolTable.enter_scope();
         checkParameterSemantics();
         checkSemanticsForDeclarations();
         checkSemanticsForStatements();
-
-
-
         symbolTable.exit_scope();
     }
 
@@ -90,13 +84,11 @@ public class FuncDecl extends Decl {
 
         CodeType byteCodeReturnType;
 
-
-        if(returnType instanceof ClassType) {
+        if(returnType instanceof ClassType)
             byteCodeReturnType = new RefType(codeFile.structNumber(returnType.getName().toString()));
-
-        }   else {
+        else
             byteCodeReturnType = returnType.getByteCodeType();
-        }
+
 
 
         CodeProcedure proc = new CodeProcedure(getName().toString(), byteCodeReturnType, codeFile);
@@ -107,13 +99,10 @@ public class FuncDecl extends Decl {
         for (FormalParam formalParam : formalParamList) {
             CodeType paramByteCodeType;
 
-            if(formalParam.getType() instanceof ClassType) {
+            if(formalParam.getType() instanceof ClassType)
                 paramByteCodeType = new RefType(codeFile.structNumber(formalParam.getType().getName().toString()));
-
-            }   else {
+            else
                 paramByteCodeType = formalParam.getType().getByteCodeType();
-            }
-
 
             proc.addParameter(formalParam.getName().toString(), paramByteCodeType);
         }
@@ -132,14 +121,8 @@ public class FuncDecl extends Decl {
             else if(decl instanceof FuncDecl) {
                 System.out.println("decl.getName() = " + decl.getName());
                 decl.generateCode(codeFile);
-            } else {
-                throw new RuntimeException("ERROR. unknown declaration.");
             }
-
-
         }
-
-
         for (Statement statement : statementList) {
             statement.generateCode(proc);
         }
@@ -182,15 +165,14 @@ public class FuncDecl extends Decl {
                 checkThatFunctionHasCompatibleReturnValueFor(statement);
                 returnStatementsCount++;
             }
-
         }
-
         if(returnStatementsCount < 1 && !this.returnType.equals(new VoidType()))
             throw new FunctionMustHaveReturnStatementException(this);
     }
 
     private void checkThatFunctionHasCompatibleReturnValueFor(Statement statement) {
         ReturnStatement rs = (ReturnStatement) statement;
+
         if(!rs.getType().canBeCastTo(this.returnType))
             throw new IncompatibleReturnTypeException(rs);
 

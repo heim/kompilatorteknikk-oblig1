@@ -50,7 +50,6 @@ public class ClassDecl extends Decl {
     @Override
     public void generateCode(CodeFile codeFile) {
         codeFile.addStruct(name.toString());
-
         CodeStruct struct = new CodeStruct(name.toString());
         for (VarDecl decl : varDecl) {
             String declName =   decl.getName().toString();
@@ -60,10 +59,7 @@ public class ClassDecl extends Decl {
                 struct.addVariable(declName, decl.getType().getByteCodeType());
             }
         }
-
         codeFile.updateStruct(struct);
-
-        
     }
 
     private RefType getRefTypeForName(CodeFile codeFile, VarDecl decl) {

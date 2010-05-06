@@ -35,21 +35,15 @@ public class SymbolTable {
 
 
     public Type lookup(Name name) {
-
-        //first check current scope
-        Type currentScopeType = currentScope.get(name);
-
-        if (currentScopeType != null) {
-            return currentScopeType;
+        Type typeFromCurrentScope = currentScope.get(name);
+        if (typeFromCurrentScope != null) {
+            return typeFromCurrentScope;
         }
-
-
-
+        //Finnes ikke i nåværende skop. sjekker andre skop.
         for(int i = scopeStack.size() - 1; i > -1; i--) {
             Map<Name, Type> scope = scopeStack.get(i);
             Type type = scope.get(name);
             if(type != null) {
-
                 return type;
             }
         }
@@ -65,7 +59,6 @@ public class SymbolTable {
 
     public void enter_scope() {
         HashMap<Name, Type> oldScope = (HashMap<Name, Type>) currentScope.clone();
-
         scopeStack.push(oldScope);
         currentScope = new HashMap<Name, Type>();
     }
@@ -76,23 +69,19 @@ public class SymbolTable {
 
 
     @Override
-    public String toString() {
+    public String toString() { //for debug
         StringBuilder sb = new StringBuilder();
         sb.append("Current scope: \n");
         for (Name name : currentScope.keySet()) {
             sb.append(name.toString());
             sb.append("\n");
         }
-
-
         for (Map<Name, Type> table : scopeStack) {
-            sb.append("Scope: \n");
+            sb.append("\nScope: \n");
             for (Name name : table.keySet()) {
                 sb.append(name.toString());
                 sb.append("\n");
             }
-
-
         }
         return sb.toString();
     }

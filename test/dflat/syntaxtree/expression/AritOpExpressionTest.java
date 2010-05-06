@@ -1,5 +1,6 @@
 package dflat.syntaxtree.expression;
 
+import bytecode.CodeProcedure;
 import dflat.exceptions.IncompatibleTypeException;
 import dflat.syntaxtree.expression.op.ExponentOp;
 import dflat.syntaxtree.expression.op.MinusOp;
@@ -52,6 +53,10 @@ public class AritOpExpressionTest {
             @Override
             public Type getType() {
                 return type;
+            }
+
+            @Override
+            public void generateCode(CodeProcedure codeProcedure) {
             }
 
             @Override

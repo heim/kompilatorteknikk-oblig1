@@ -9,6 +9,6 @@ public class IncompatibleReturnTypeException extends SemanticsException {
 
     @Override
     public String getMessage() {
-        return "Incompatible return type";
+        return "Incompatible return type" + offendingNode.toString();
     }
 }

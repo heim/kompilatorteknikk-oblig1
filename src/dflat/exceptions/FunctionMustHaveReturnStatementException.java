@@ -10,6 +10,6 @@ public class FunctionMustHaveReturnStatementException extends SemanticsException
 
     @Override
     public String getMessage() {
-        return "Function must have a return statement"; 
+        return "Function must have a return statement." + offendingNode.toString(); 
     }
 }
