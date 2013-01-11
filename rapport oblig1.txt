@@ -49,6 +49,9 @@ Equals funksjonen i name.
 //op generer sin egen kode.
 
 
+ingen short circuit eval.
+
+
 ////Symboltabell
 StackBasert. beholder popper referansene når den gpr ut av scope.
 

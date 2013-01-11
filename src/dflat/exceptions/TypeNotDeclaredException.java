@@ -11,6 +11,6 @@ public class TypeNotDeclaredException extends SemanticsException {
 
     @Override
     public String getMessage() {
-        return "Type not declared." + offendingNode.toString();
+        return "Type not declared." + (offendingNode != null ? offendingNode.toString() : "");
     }
 }

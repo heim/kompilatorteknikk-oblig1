@@ -1,0 +1,36 @@
+(PROGRAM
+	(FUNC_DECL (TYPE void) (NAME Main)
+		(VAR_DECL (TYPE boolean)(NAME flag))
+		(VAR_DECL (TYPE int)(NAME val))
+		(VAR_DECL (TYPE float)(NAME real))
+		(ASSIGN_STMT
+			(NAME val)
+			(INT_LITERAL 42)
+)
+
+		(ASSIGN_STMT
+			(NAME flag)
+			(REL_OP >
+				(NAME val)
+				(INT_LITERAL 40)
+			)
+
+)
+
+		(ASSIGN_STMT
+			(NAME real)
+			(NAME val)
+)
+
+		(CALL_STMT (NAME print_float)
+			(ACTUAL_PARAM (NAME real))
+
+		(CALL_STMT (NAME print_float)
+			(ACTUAL_PARAM (NAME val))
+
+		(CALL_STMT (NAME print_int)
+			(ACTUAL_PARAM (NAME val))
+
+	)
+
+)

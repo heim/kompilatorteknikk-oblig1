@@ -43,14 +43,15 @@ public class Compiler {
 
         try {
             program.checkSemantics();
-        } catch (SemanticsException e) {
-            //ystem.out.println("e.getClass().getSimpleName() = " + e.getClass().getSimpleName());
+            writeAST(program);
+            generateCode(program);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
             this.semanticError = e.getMessage();
             return 2; //semantic semanticError
         }
 
-        writeAST(program);
-        generateCode(program);
+
         return 0;
 
     }

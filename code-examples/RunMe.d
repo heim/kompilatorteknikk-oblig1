@@ -75,25 +75,10 @@ func inOutTest(){
     return;
 }
 
-func ret bool f1() {
-
- print_line("f1");
- return false;
-
-}
-
-func ret bool f2() {
-
- print_line("f2");
- return true;
-
-}
 func Main() {
     var float num;
     var int num2;
     var string navn;
-    var bool abc;
-
 
     num := 6.480740;
     print_float( num );
@@ -116,8 +101,5 @@ func Main() {
     printCmplx(dummy);
 
     print_line("DONE");
-
-    abc := f1() && f2();
-
     return;
 }

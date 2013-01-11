@@ -12,6 +12,6 @@ public class SemanticsException extends RuntimeException {
 
     @Override
     public String toString() {
-        return "Uspesifisert semantikk-feil."+ offendingNode.toString();
+        return "Uspesifisert semantikk-feil."+ (offendingNode != null ? offendingNode.toString() : "");
     }
 }

@@ -11,6 +11,6 @@ public class SymbolNotDeclaredException extends SemanticsException {
 
     @Override
     public String getMessage() {
-        return "Symbol not declared. " + offendingNode.toString();
+        return "Symbol not declared. " + (offendingNode != null ? offendingNode.toString() : "");
     }
 }
